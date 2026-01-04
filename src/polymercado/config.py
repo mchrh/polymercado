@@ -67,7 +67,7 @@ class AppSettings(BaseModel):
     ALERT_TELEGRAM_CHAT_ID: str | None = None
 
     SCHEDULER_ENABLED: bool = True
-    CLOB_WS_ENABLED: bool = False
+    CLOB_WS_ENABLED: bool = True
     CLOB_WS_PING_SECONDS: int = Field(default=10, ge=1)
     CLOB_WS_URL: str = "wss://ws-subscriptions-clob.polymarket.com/ws/market"
     CLOB_WS_FALLBACK_URLS: str = "wss://ws-subscriptions-clob.polymarket.com/ws/"
