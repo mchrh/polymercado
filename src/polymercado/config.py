@@ -58,10 +58,10 @@ class AppSettings(BaseModel):
     ARB_MARKET_COOLDOWN_SECONDS: int = Field(default=60, ge=0)
     TAKER_FEE_BPS: int = Field(default=0, ge=0, le=1000)
 
-    ALERTS_ENABLED: bool = False
+    ALERTS_ENABLED: bool = True
     ALERT_CHANNELS: str = ""
     ALERT_DEDUP_WINDOW_SECONDS: int = Field(default=600, ge=0)
-    ALERT_MIN_SEVERITY: int = Field(default=2, ge=1, le=5)
+    ALERT_MIN_SEVERITY: int = Field(default=3, ge=1, le=5)
     ALERT_RULES_ENABLED: bool = False
     ALERT_ACK_ENABLED: bool = True
     ALERT_SLACK_WEBHOOK_URL: str | None = None
