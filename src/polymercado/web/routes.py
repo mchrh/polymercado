@@ -33,7 +33,7 @@ from polymercado.models import (
     WalletMarketExposure,
 )
 from polymercado.signals.arb import avg_ask, normalize_levels
-from polymercado.utils import to_decimal, utc_now
+from polymercado.utils import ensure_utc, to_decimal, utc_now
 
 router = APIRouter()
 
@@ -222,10 +222,8 @@ def markets(request: Request) -> HTMLResponse:
             yes_token, no_token = resolve_binary_tokens(
                 market.token_ids, market.outcomes
             )
-            ends_soon = (
-                market.end_time is not None
-                and market.end_time <= now + timedelta(days=7)
-            )
+            end_time = ensure_utc(market.end_time)
+            ends_soon = end_time is not None and end_time <= now + timedelta(days=7)
 
             items.append(
                 {
