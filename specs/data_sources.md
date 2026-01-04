@@ -36,7 +36,13 @@ Recommended query defaults:
 
 Fields we depend on (examples; exact naming depends on Gamma schema):
 - event: `id`, `slug`, `title`, `tags[]`, `active`, `closed`, `startDate/endDate`
-- market (nested): `id`, `question`, `clobTokenIds`, `outcomes`, `outcomePrices`, `conditionId`, `volume`, `liquidity`, `negRisk`
+- market (nested): `id`, `question`, `conditionId`, `clobTokenIds`, `outcomes`, `outcomePrices`, `volumeNum`, `liquidityNum`, `negRisk`
+
+Gamma payload normalization:
+- `outcomes` and `outcomePrices` are JSON-encoded strings in practice; parse into arrays.
+- `clobTokenIds` is usually an array; handle a JSON-encoded string fallback.
+- Prefer numeric `volumeNum`/`liquidityNum`; `volume`/`liquidity` may be strings.
+- Negative risk flags vary by API: Gamma `negRisk`, CLOB `neg_risk`, Data API positions `negativeRisk`. Normalize to `neg_risk`.
 
 ### `GET /markets`
 
@@ -46,7 +52,7 @@ Use cases:
 Also useful fields (if present):
 - `min_incentive_size`, `max_incentive_spread` for liquidity-reward aware views.
 
-### `GET /tags`, `GET /sports`, `GET /series`, `GET /search`
+### `GET /tags`, `GET /sports`, `GET /series`, `GET /public-search`
 
 Use cases:
 - Build category taxonomy and support UI filtering.
@@ -66,6 +72,7 @@ Key query params:
 - `limit`/`offset` pagination
 - Optional filters:
   - `market=<conditionIds>` for drilldowns
+  - `eventId=<eventIds>` (Data API expects integers; Gamma event IDs are strings, cast carefully)
   - `user=<address>` for wallet pages
   - `side=BUY|SELL`
 
@@ -77,6 +84,8 @@ Fields we depend on:
 - `timestamp` (ms epoch)
 - market context: `title`, `slug`, `eventSlug`, `outcome`, `outcomeIndex`
 - `transactionHash` (useful for audit)
+Notes:
+- Data API trade payloads only document `proxyWallet` for identity; do not assume `user`/`owner` fields exist.
 
 ### `GET /positions`
 
@@ -95,6 +104,7 @@ Use cases:
 
 Notes:
 - Endpoint accepts a list of `market` condition IDs; we should batch requests.
+- Response items are `{market, value}`; map `value` to `open_interest`.
 
 ### Optional Data API endpoints (future)
 
@@ -119,7 +129,7 @@ Fields:
 Use cases:
 - Quick top-of-book pricing when we don’t need depth.
 
-### Optional: `GET /books`, `GET /prices`, `GET /midprices`
+### Optional: `POST /books`, `GET /prices`, `POST /prices`, `GET /midpoint`
 
 Use cases:
 - High-cardinality refreshes when scanning many markets.
@@ -137,4 +147,6 @@ Channel: `market`
 Design:
 - Maintain in-memory orderbook cache keyed by `asset_id`.
 - Periodically resync with `GET /book` snapshots to heal missed updates.
-
+Notes:
+- `book` messages use `bids`/`asks` arrays; docs sometimes label them as `buys`/`sells`.
+- WS timestamps are millisecond strings; REST `/book` timestamps are RFC3339.

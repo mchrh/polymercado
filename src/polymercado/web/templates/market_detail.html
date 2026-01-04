@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>{{ market.title or market.question }}</h2>
+  <div class="grid">
+    <div>
+      <div class="kv"><span>Condition</span><span class="mono">{{ market.condition_id }}</span></div>
+      <div class="kv"><span>Slug</span><span>{{ market.slug or "-" }}</span></div>
+      <div class="kv"><span>Neg Risk</span><span>{{ market.neg_risk }}</span></div>
+      <div class="kv"><span>Ends</span><span>{{ market.end_time or "-" }}</span></div>
+    </div>
+    <div>
+      <div class="kv"><span>Token IDs</span><span class="mono">{{ market.token_ids }}</span></div>
+      <div class="kv"><span>Outcomes</span><span>{{ market.outcomes }}</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <h3>Orderbooks</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Side</th>
+        <th>As Of</th>
+        <th>Levels</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in orderbooks %}
+      <tr>
+        <td class="mono">{{ book.token_id }}</td>
+        <td>{{ book.side }}</td>
+        <td>{{ book.as_of or "-" }}</td>
+        <td class="mono">{{ book.levels[:4] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="section-card">
+  <h3>Recent Trades</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Wallet</th>
+        <th>Side</th>
+        <th>Size</th>
+        <th>Price</th>
+        <th>Notional</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trade in trades %}
+      <tr>
+        <td>{{ trade.trade_ts }}</td>
+        <td class="mono">{{ trade.wallet or "-" }}</td>
+        <td>{{ trade.side }}</td>
+        <td>{{ trade.size }}</td>
+        <td>{{ trade.price }}</td>
+        <td>{{ trade.notional_usd }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="section-card">
+  <h3>Signals</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Type</th>
+        <th>Severity</th>
+        <th>Payload</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for signal in signals %}
+      <tr>
+        <td>{{ signal.created_at }}</td>
+        <td>{{ signal.signal_type }}</td>
+        <td>{{ signal.severity }}</td>
+        <td class="mono">{{ signal.payload }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

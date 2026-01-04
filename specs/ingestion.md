@@ -33,6 +33,10 @@ This universe drives websocket subscriptions and/or polling for `/book`.
 - Pull: `GET /events?active=true&closed=false&order=id&ascending=false&limit=100&offset=...`
 - Upsert into `markets` (and any `events` table if added later).
 - Detect newly discovered markets/events.
+- Normalize Gamma fields:
+  - Parse `outcomes` and `outcomePrices` JSON strings into arrays.
+  - Handle `clobTokenIds` as array or JSON string.
+  - Prefer numeric `volumeNum`/`liquidityNum` when present.
 
 ### `sync_open_interest`
 
@@ -59,8 +63,14 @@ Goal: create a near-real-time feed of large taker prints.
 ### `sync_orderbooks` (polling fallback)
 
 - Frequency: every **10–30 seconds** if websocket is not enabled.
-- For each tracked token ID, call `GET /book?token_id=...` (or batch `/books` if available).
+- For each tracked token ID, call `GET /book?token_id=...` (or batch via `POST /books`).
 - Update `orderbook_levels`.
+- Normalize timestamps:
+  - REST `/book` uses RFC3339 strings.
+  - WebSocket uses millisecond epoch strings.
+- Normalize negative risk:
+  - Prefer CLOB `neg_risk` when orderbooks are present.
+  - Fallback to Gamma `negRisk` for markets without books.
 
 ### `run_signal_engine`
 
@@ -99,4 +109,3 @@ Page Gamma `/events` historically by `closed=true` or by date ranges as needed.
 - Retry with exponential backoff for 5xx and timeouts.
 - For 429/throttle: slow down concurrency, increase interval.
 - Persist “job run” metadata (optional table) for audit.
-

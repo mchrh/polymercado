@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>Markets</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Condition</th>
+        <th>Volume</th>
+        <th>Liquidity</th>
+        <th>Open Interest</th>
+        <th>Spread Y/N</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for market, volume, liquidity, oi, spread_yes, spread_no in rows %}
+      <tr>
+        <td>
+          <a href="/markets/{{ market.condition_id }}">{{ market.title or market.question }}</a>
+          {% if market.neg_risk %}<span class="badge">neg risk</span>{% endif %}
+        </td>
+        <td class="mono">{{ market.condition_id }}</td>
+        <td>{{ volume or "-" }}</td>
+        <td>{{ liquidity or "-" }}</td>
+        <td>{{ oi or "-" }}</td>
+        <td>{{ spread_yes or "-" }} / {{ spread_no or "-" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -10,9 +10,10 @@
 
 - Timestamps stored as `timestamptz` in UTC.
 - IDs:
-  - `condition_id` = 0x-prefixed 64-hex string (market identifier)
-  - `token_id` = large numeric string (CLOB “asset_id”)
-  - `wallet_address` = 0x-prefixed 40-hex string
+- `condition_id` = 0x-prefixed 64-hex string (market identifier)
+- `token_id` = large numeric string (CLOB “asset_id”)
+- `wallet_address` = 0x-prefixed 40-hex string
+- Gamma `id` fields are strings (even if numeric); store `event_id`/`market_id` as text.
 - Prices stored as numeric (e.g., `numeric(18,8)`), sizes as numeric.
 
 ## Tables
@@ -23,8 +24,8 @@ Represents a Polymarket “market” (binary outcome market) keyed by `condition
 
 Columns (minimum):
 - `condition_id` (pk)
-- `market_id` (Gamma id, nullable)
-- `event_id` (Gamma event id, nullable)
+- `market_id` (Gamma id, string, nullable)
+- `event_id` (Gamma event id, string, nullable)
 - `slug`, `question`, `title`
 - `tag_ids` (int[], denormalized for quick filters) + optional join table later
 - `neg_risk` (bool)
@@ -82,7 +83,7 @@ Normalized trade prints from Data API `/trades`.
 Columns:
 - `trade_pk` (pk, synthetic)
 - `transaction_hash` (unique when present)
-- `wallet` (canonical: proxyWallet)
+- `wallet` (canonical: proxyWallet; nullable if missing)
 - `condition_id`, `token_id`
 - `side` (`BUY|SELL`)
 - `price`, `size` (shares), `notional_usd` (computed = `price * size`)
@@ -139,10 +140,46 @@ Indexes:
 - `(wallet, created_at desc)`
 - `(condition_id, created_at desc)`
 
+### `alert_log`
+
+Dispatch log for alerts (see `specs/alerts.md`).
+
+Columns:
+- `id` (pk)
+- `signal_event_id` (fk)
+- `channel`
+- `notification_key`
+- `sent_at`
+- `status` (`SENT|FAILED|SUPPRESSED`)
+- `severity` (nullable)
+- `error` (nullable)
+
+Indexes:
+- `(notification_key, sent_at desc)`
+
+### `app_config`
+
+Runtime configuration store (see `specs/config.md`).
+
+Columns:
+- `key` (pk)
+- `value` (jsonb)
+- `updated_at`
+- `updated_by` (nullable)
+
+### `job_runs` (ops metadata)
+
+Columns:
+- `job_name` (pk)
+- `last_started_at`
+- `last_success_at`
+- `last_error_at`
+- `last_error` (nullable)
+- `last_duration_ms` (nullable)
+
 ## Retention policy (defaults)
 
 - `trades`: keep **forever** (it’s the core research artifact) unless storage becomes an issue.
 - `market_metrics_ts`: keep 1-minute granularity for **30 days**, then downsample to hourly for **1 year**.
 - `orderbook_levels`: keep only latest + optionally a sparse history (e.g., every 5 minutes for 7 days).
 - `signal_events`: keep forever.
-

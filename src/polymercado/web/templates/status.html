@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>Job Status</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Job</th>
+        <th>Last Started</th>
+        <th>Last Success</th>
+        <th>Last Error</th>
+        <th>Duration (ms)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for run in runs %}
+      <tr>
+        <td>{{ run.job_name }}</td>
+        <td>{{ run.last_started_at or "-" }}</td>
+        <td>{{ run.last_success_at or "-" }}</td>
+        <td>{{ run.last_error or "-" }}</td>
+        <td>{{ run.last_duration_ms or "-" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

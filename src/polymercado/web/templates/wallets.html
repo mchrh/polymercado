@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>Wallets</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Wallet</th>
+        <th>First Seen</th>
+        <th>Last Seen</th>
+        <th>Lifetime Notional</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for wallet in wallets %}
+      <tr>
+        <td class="mono"><a href="/wallets/{{ wallet.wallet }}">{{ wallet.wallet }}</a></td>
+        <td>{{ wallet.first_seen_at }}</td>
+        <td>{{ wallet.last_seen_at }}</td>
+        <td>{{ wallet.lifetime_notional_usd }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

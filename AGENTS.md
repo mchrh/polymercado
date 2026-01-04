@@ -34,7 +34,7 @@
 
 ## Version Control 
 - Always create a standard .gitignore file in the directory, assume I'm working on a Mac so .DS_Store needs to be included. 
-- After adding a feature, add it to git and commit it if it passes the tests designed for it.
+- After adding a feature or a file, add it to git and commit it if it passes the tests designed for it.
 - Don't commit any .env file. 
 
 ## Production safety

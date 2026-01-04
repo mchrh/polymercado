@@ -16,7 +16,7 @@ Provide an interface to find markets worth researching by combining:
 - Data API:
   - `/oi`
 - CLOB:
-  - `/book` or `/books` for tracked markets
+  - `/book` or `POST /books` for tracked markets
 
 ## Derived metrics (per market)
 
@@ -24,8 +24,8 @@ Provide an interface to find markets worth researching by combining:
 
 We will expose raw metrics and a composite:
 
-- `gamma_volume` (normalized)
-- `gamma_liquidity`
+- `gamma_volume` (from Gamma `volumeNum` when present)
+- `gamma_liquidity` (from Gamma `liquidityNum` when present)
 - `open_interest`
 - `spread_mid`:
   - `(best_ask - best_bid)` for YES and NO
@@ -61,7 +61,7 @@ This is for ranking only; users can sort by any underlying metric.
 - sports:
   - filter by `series_id` or known sports tag IDs (from `/sports`)
 - text search:
-  - Gamma `/search` (preferred)
+  - Gamma `/public-search` (preferred)
   - fallback: local `ILIKE` on title/slug if already ingested
 
 ### By liquidity / activity
@@ -107,4 +107,3 @@ Drilldown:
 - Price history / realized volatility using CLOB pricing endpoints or snapshots.
 - UMA resolution status + clarifications surfaced in UI.
 - Cross-market neg-risk conversion analytics.
-

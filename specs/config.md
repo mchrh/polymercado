@@ -19,6 +19,7 @@
 - `DATABASE_URL` (required)
 - `HTTP_TIMEOUT_SECONDS` (default 10)
 - `HTTP_MAX_CONCURRENCY` (default 10)
+- `SCHEDULER_ENABLED` (default true)
 
 ### Ingestion schedule
 
@@ -27,6 +28,10 @@
 - `SYNC_OI_INTERVAL_SECONDS` (default 300)
 - `SYNC_UNIVERSE_INTERVAL_SECONDS` (default 900)
 - `ORDERBOOK_SNAPSHOT_INTERVAL_SECONDS` (default 300) (websocket heal)
+- `GAMMA_EVENTS_PAGE_LIMIT` (default 100)
+- `GAMMA_EVENTS_MAX_PAGES` (default 50)
+- `TRADES_PAGE_LIMIT` (default 500)
+- `TRADE_SAFETY_WINDOW_SECONDS` (default 300)
 
 ### Universe selection
 
@@ -57,6 +62,15 @@
 - `ALERTS_ENABLED` (default false)
 - `ALERT_CHANNELS` (comma-separated: `slack,email,telegram`)
 - `ALERT_DEDUP_WINDOW_SECONDS` (default 600)
+- `ALERT_MIN_SEVERITY` (default 2)
+- `ALERT_SLACK_WEBHOOK_URL` (optional)
+- `ALERT_TELEGRAM_BOT_TOKEN` (optional)
+- `ALERT_TELEGRAM_CHAT_ID` (optional)
+
+### Websocket
+
+- `CLOB_WS_ENABLED` (default false)
+- `CLOB_WS_PING_SECONDS` (default 10)
 
 ## Storage of config in DB
 
@@ -74,4 +88,3 @@ UI:
 
 - Validate config ranges (e.g., `ARB_EDGE_MIN` must be between 0 and 0.05).
 - If config is invalid, reject update and log.
-

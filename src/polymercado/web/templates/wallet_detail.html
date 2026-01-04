@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>Wallet</h2>
+  <div class="kv"><span>Address</span><span class="mono">{{ wallet.wallet }}</span></div>
+  <div class="kv"><span>First Seen</span><span>{{ wallet.first_seen_at }}</span></div>
+  <div class="kv"><span>Last Seen</span><span>{{ wallet.last_seen_at }}</span></div>
+  <div class="kv"><span>Lifetime Notional</span><span>{{ wallet.lifetime_notional_usd }}</span></div>
+</div>
+
+<div class="section-card">
+  <h3>Recent Trades</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Condition</th>
+        <th>Side</th>
+        <th>Size</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trade in trades %}
+      <tr>
+        <td>{{ trade.trade_ts }}</td>
+        <td class="mono">{{ trade.condition_id }}</td>
+        <td>{{ trade.side }}</td>
+        <td>{{ trade.size }}</td>
+        <td>{{ trade.price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="section-card">
+  <h3>Signals</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Type</th>
+        <th>Severity</th>
+        <th>Payload</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for signal in signals %}
+      <tr>
+        <td>{{ signal.created_at }}</td>
+        <td>{{ signal.signal_type }}</td>
+        <td>{{ signal.severity }}</td>
+        <td class="mono">{{ signal.payload }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

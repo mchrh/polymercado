@@ -16,7 +16,7 @@ The platform should be **configurable**, **auditable** (show why a signal fired)
 
 Polymarket users often trade through a **proxy wallet** (especially Gnosis Safe proxy). The Data API exposes `proxyWallet` on trades/positions.
 
-- **Wallet (canonical for this platform):** `proxyWallet` when present; else fallback to `user` address (if returned by an endpoint).
+- **Wallet (canonical for this platform):** `proxyWallet` from Data API payloads. If missing, treat the wallet as unknown and skip new-wallet logic.
 - All “new wallet” logic uses this canonical wallet.
 
 ### “New wallet”
@@ -76,4 +76,3 @@ We expose multiple liquidity indicators (none is perfect alone):
 1. Hosting: local-only vs hosted SaaS? (Affects auth and rate-limiting strategy.)
 2. Alert destinations: Slack, Telegram, email? (We’ll spec a pluggable interface.)
 3. Do you want “new wallet” relative to *all time* or “newly active after dormancy”? (We spec both.)
-

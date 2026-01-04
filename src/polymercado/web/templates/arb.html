@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>Arb Screener</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Market</th>
+        <th>Edge</th>
+        <th>Q Max</th>
+        <th>Top of Book</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for signal in signals %}
+      <tr>
+        <td>{{ signal.created_at }}</td>
+        <td class="mono">{{ signal.condition_id }}</td>
+        <td>{{ signal.payload.get("edge_at_q_max") }}</td>
+        <td>{{ signal.payload.get("q_max") }}</td>
+        <td>{{ signal.payload.get("top_of_book_sum") }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

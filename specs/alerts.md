@@ -53,6 +53,7 @@ Persist in `alert_log` table (proposed):
 - `notification_key`
 - `sent_at`
 - `status` (`SENT|FAILED|SUPPRESSED`)
+- `severity` (int, nullable) to support dedupe on escalation
 - `error` (nullable)
 
 ## Channel payloads
@@ -88,4 +89,3 @@ Short-format message with deep links.
   - stop retrying after N attempts; surface in UI
 - Dispatch lag:
   - show queue length and oldest undelivered signal
-

@@ -1,0 +1,50 @@
+{
+  "clob": {
+    "book_token_candidates": [
+      "63876354810647379515878234584115568951693647874310381130205788894548916040833",
+      "64917161910049212782344414295688724357084475362968531440021264550805733226234"
+    ],
+    "book_token_id": "63876354810647379515878234584115568951693647874310381130205788894548916040833",
+    "ws": {
+      "asset_id": "63876354810647379515878234584115568951693647874310381130205788894548916040833",
+      "error": "Timed out waiting for websocket book message.",
+      "timeout_seconds": 25.0
+    }
+  },
+  "data_api": {
+    "oi_params": {
+      "market": "0x18b5d0680d437c512702d5ffb6f47faef308383e406cbea5468f09a6e7b77582"
+    },
+    "trades_params": {
+      "filterAmount": 10000,
+      "filterType": "CASH",
+      "limit": 5,
+      "market": "0x18b5d0680d437c512702d5ffb6f47faef308383e406cbea5468f09a6e7b77582",
+      "offset": 0,
+      "takerOnly": "true"
+    }
+  },
+  "gamma": {
+    "condition_id": "0x18b5d0680d437c512702d5ffb6f47faef308383e406cbea5468f09a6e7b77582",
+    "event_id": "143606",
+    "events_params": {
+      "active": "true",
+      "ascending": "false",
+      "closed": "false",
+      "limit": 10,
+      "offset": 0,
+      "order": "id"
+    },
+    "market_id": "1106922",
+    "token_ids": [
+      "63876354810647379515878234584115568951693647874310381130205788894548916040833",
+      "64917161910049212782344414295688724357084475362968531440021264550805733226234"
+    ]
+  },
+  "generated_at": "2026-01-04T19:25:39.894086+00:00",
+  "notes": [
+    "trades_empty_for_market_filter",
+    "positions_skipped_missing_proxy_wallet",
+    "ws_book_fetch_failed"
+  ]
+}

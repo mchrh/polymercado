@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>Config Overrides</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <td class="mono">{{ row.key }}</td>
+        <td class="mono">{{ row.value }}</td>
+        <td>{{ row.updated_at or "-" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="section-card">
+  <h3>Update Config</h3>
+  <form class="form" method="post">
+    <label>Key</label>
+    <input name="key" placeholder="ARB_EDGE_MIN" />
+    <label>Value (JSON or string)</label>
+    <textarea name="value" rows="4" placeholder="0.01"></textarea>
+    <button type="submit">Save</button>
+  </form>
+</div>
+
+<div class="section-card">
+  <h3>Current Settings</h3>
+  <div class="grid">
+    {% for key, value in settings.model_dump().items() %}
+    <div>
+      <div class="card-title">{{ key }}</div>
+      <div class="mono">{{ value }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

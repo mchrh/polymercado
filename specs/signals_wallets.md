@@ -43,8 +43,8 @@ The output is a stream of `signal_events` with drilldown evidence and dedupe gua
 ## Canonical wallet identity
 
 From Data API `/trades`:
-- Prefer `proxyWallet` (canonical)
-- If `proxyWallet` is missing (should be rare): fallback to `user` or `owner` if present.
+- Use `proxyWallet` (canonical).
+- If `proxyWallet` is missing, treat the wallet as unknown and avoid emitting wallet-based signals.
 
 Store canonical wallet in:
 - `trades.wallet`
@@ -141,4 +141,3 @@ Table with:
 - Data API timestamp ordering: don’t assume monotonic; use a safety window when paging.
 - Wallet “newness” is platform-relative; always show `first_seen_at` in UI.
 - Avoid spam: allow per-market or per-wallet cooldowns in alerting layer.
-

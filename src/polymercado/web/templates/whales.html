@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>Whale Tape</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Wallet</th>
+        <th>Type</th>
+        <th>Notional</th>
+        <th>Market</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for signal in signals %}
+      <tr>
+        <td>{{ signal.created_at }}</td>
+        <td class="mono">{{ signal.wallet }}</td>
+        <td>{{ signal.signal_type }}</td>
+        <td>{{ signal.payload.get("notional_usd") }}</td>
+        <td>{{ signal.payload.get("market_title") }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

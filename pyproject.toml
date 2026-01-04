@@ -1,0 +1,31 @@
+[project]
+name = "polymercado"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+  "apscheduler>=3.10.4",
+  "fastapi>=0.112.0",
+  "httpx>=0.27.0",
+  "jinja2>=3.1.4",
+  "pydantic>=2.8.2",
+  "sqlalchemy>=2.0.32",
+  "uvicorn>=0.30.6",
+  "websockets>=12.0",
+  "psycopg[binary]>=3.2.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.2",
+  "ruff>=0.4.8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/polymercado"]
+
+[tool.hatch.build.targets.wheel.package-data]
+polymercado = ["web/templates/**/*.html", "web/static/**/*"]
