@@ -66,7 +66,7 @@ class AppSettings(BaseModel):
     ALERT_ACK_ENABLED: bool = True
     ALERT_SLACK_WEBHOOK_URL: str | None = None
     ALERT_TELEGRAM_BOT_TOKEN: str | None = "8552168176:AAFAmrs7ngmxJfweaeRiAxmDeS0VE7L85pU"
-    ALERT_TELEGRAM_CHAT_ID: str | None = "-3591884093"
+    ALERT_TELEGRAM_CHAT_ID: str | None = "@polymercado"
 
     SCHEDULER_ENABLED: bool = True
     CLOB_WS_ENABLED: bool = True
