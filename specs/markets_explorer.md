@@ -30,7 +30,7 @@ We will expose raw metrics and a composite:
 - `spread_mid`:
   - `(best_ask - best_bid)` for YES and NO
 - `depth_within_1c`:
-  - shares available within 0.01 of best ask/bid (configurable)
+  - shares available within 0.01 of best ask/bid (configurable via `MARKET_DEPTH_WITHIN_CENTS`)
 
 Composite (example):
 

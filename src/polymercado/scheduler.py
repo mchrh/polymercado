@@ -8,9 +8,14 @@ from sqlalchemy.orm import sessionmaker
 from polymercado.alerts.dispatcher import dispatch_alerts
 from polymercado.config import AppSettings
 from polymercado.ingestion.clob import sync_orderbooks
-from polymercado.ingestion.data_api import sync_large_trades, sync_open_interest
+from polymercado.ingestion.data_api import (
+    sync_large_trades,
+    sync_open_interest,
+    sync_wallet_positions,
+)
 from polymercado.ingestion.gamma import sync_gamma_events
 from polymercado.jobs import run_job
+from polymercado.quality import run_data_quality_checks
 from polymercado.signals.engine import run_signal_engine
 
 
@@ -85,5 +90,31 @@ def build_scheduler(
         max_instances=1,
         coalesce=True,
     )
+
+    if settings.WALLET_POSITIONS_ENABLED:
+        scheduler.add_job(
+            with_session(
+                "sync_wallet_positions",
+                partial(sync_wallet_positions, settings=settings),
+            ),
+            "interval",
+            seconds=settings.SYNC_POSITIONS_INTERVAL_SECONDS,
+            id="sync_wallet_positions",
+            max_instances=1,
+            coalesce=True,
+        )
+
+    if settings.DATA_QUALITY_ENABLED:
+        scheduler.add_job(
+            with_session(
+                "run_data_quality_checks",
+                partial(run_data_quality_checks, settings=settings),
+            ),
+            "interval",
+            seconds=settings.DATA_QUALITY_INTERVAL_SECONDS,
+            id="run_data_quality_checks",
+            max_instances=1,
+            coalesce=True,
+        )
 
     return scheduler

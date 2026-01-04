@@ -1,22 +1,10 @@
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# Environment files
 .env
-.env.*
-
-# Node
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-dist/
-build/
-
-# Python
+.venv
 __pycache__/
-*.py[cod]
-.venv/
-
+*.pyc
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/

@@ -1,33 +1,71 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="section-card">
-  <h2>Wallet</h2>
-  <div class="kv"><span>Address</span><span class="mono">{{ wallet.wallet }}</span></div>
-  <div class="kv"><span>First Seen</span><span>{{ wallet.first_seen_at }}</span></div>
-  <div class="kv"><span>Last Seen</span><span>{{ wallet.last_seen_at }}</span></div>
-  <div class="kv"><span>Lifetime Notional</span><span>{{ wallet.lifetime_notional_usd }}</span></div>
+<div class="grid">
+  <div class="section-card">
+    <h2>Wallet</h2>
+    <div class="kv"><span>Address</span><span class="mono">{{ wallet.wallet }}</span></div>
+    <div class="kv"><span>First seen</span><span>{{ wallet.first_seen_at }}</span></div>
+    <div class="kv"><span>Last seen</span><span>{{ wallet.last_seen_at }}</span></div>
+    <div class="kv"><span>Tracked until</span><span>{{ wallet.tracked_until or "-" }}</span></div>
+    <div class="kv"><span>Lifetime notional</span><span>{{ wallet.lifetime_notional_usd }}</span></div>
+  </div>
+
+  <div class="section-card">
+    <h2>Positions</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Market</th>
+          <th>Net Shares</th>
+          <th>Avg Entry</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for exposure, market in positions %}
+        <tr>
+          <td>
+            <a href="/markets/{{ exposure.condition_id }}">
+              {{ market.title if market else exposure.condition_id }}
+            </a>
+          </td>
+          <td>{{ exposure.net_shares }}</td>
+          <td>{{ exposure.avg_entry_price or "-" }}</td>
+          <td>{{ exposure.last_updated_at }}</td>
+        </tr>
+        {% endfor %}
+        {% if positions|length == 0 %}
+        <tr>
+          <td colspan="4">No positions tracked.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <div class="section-card">
-  <h3>Recent Trades</h3>
+  <h2>Recent Trades</h2>
   <table class="table">
     <thead>
       <tr>
         <th>Time</th>
-        <th>Condition</th>
+        <th>Market</th>
         <th>Side</th>
         <th>Size</th>
         <th>Price</th>
+        <th>Notional</th>
       </tr>
     </thead>
     <tbody>
       {% for trade in trades %}
       <tr>
         <td>{{ trade.trade_ts }}</td>
-        <td class="mono">{{ trade.condition_id }}</td>
+        <td><a href="/markets/{{ trade.condition_id }}">{{ trade.condition_id }}</a></td>
         <td>{{ trade.side }}</td>
         <td>{{ trade.size }}</td>
         <td>{{ trade.price }}</td>
+        <td>{{ trade.notional_usd }}</td>
       </tr>
       {% endfor %}
     </tbody>
@@ -35,23 +73,21 @@
 </div>
 
 <div class="section-card">
-  <h3>Signals</h3>
+  <h2>Signals</h2>
   <table class="table">
     <thead>
       <tr>
         <th>Time</th>
         <th>Type</th>
         <th>Severity</th>
-        <th>Payload</th>
       </tr>
     </thead>
     <tbody>
       {% for signal in signals %}
       <tr>
         <td>{{ signal.created_at }}</td>
-        <td>{{ signal.signal_type }}</td>
+        <td><a href="/signals/{{ signal.id }}">{{ signal.signal_type }}</a></td>
         <td>{{ signal.severity }}</td>
-        <td class="mono">{{ signal.payload }}</td>
       </tr>
       {% endfor %}
     </tbody>

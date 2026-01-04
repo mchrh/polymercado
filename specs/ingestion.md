@@ -22,6 +22,7 @@ We can’t track every orderbook at 1s cadence cheaply; define a “tracked univ
 2. Filter markets by liquidity proxy:
    - `gamma_liquidity >= min_liquidity` OR `gamma_volume >= min_volume` OR `open_interest >= min_oi`
 3. Cap to `max_tracked_markets` (default 200) and update every 10–15 minutes.
+4. Always include manual overrides from `tracked_markets` (up to the cap).
 
 This universe drives websocket subscriptions and/or polling for `/book`.
 

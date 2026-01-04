@@ -105,6 +105,7 @@ Columns:
 - `first_seen_at`
 - `last_seen_at`
 - `first_trade_ts` (nullable)
+- `tracked_until` (nullable)
 - `lifetime_notional_usd` (numeric)
 - `last_7d_notional_usd` (numeric, derived)
 - `notes` (text, optional manual annotation)
@@ -120,6 +121,17 @@ Columns:
 - `last_updated_at`
 
 Populated from Data API `/positions` when requested or via periodic refresh for tracked wallets.
+
+### `tracked_markets`
+
+Manual overrides for the tracked universe.
+
+Columns:
+- `condition_id` (pk)
+- `enabled` (bool)
+- `source` (text, optional)
+- `created_at`
+- `notes` (nullable)
 
 ### `signal_events`
 
@@ -157,6 +169,26 @@ Columns:
 Indexes:
 - `(notification_key, sent_at desc)`
 
+### `alert_rules`
+
+Columns:
+- `id` (pk)
+- `priority` (int, lower is higher priority)
+- `enabled` (bool)
+- `name` (nullable)
+- `rule` (jsonb)
+- `created_at`
+- `updated_at`
+
+### `alert_ack`
+
+Columns:
+- `id` (pk)
+- `notification_key`
+- `acked_until`
+- `created_at`
+- `created_by` (nullable)
+
 ### `app_config`
 
 Runtime configuration store (see `specs/config.md`).
@@ -176,6 +208,15 @@ Columns:
 - `last_error_at`
 - `last_error` (nullable)
 - `last_duration_ms` (nullable)
+
+### `data_quality_issues`
+
+Columns:
+- `id` (pk)
+- `check_name`
+- `severity`
+- `message`
+- `created_at`
 
 ## Retention policy (defaults)
 

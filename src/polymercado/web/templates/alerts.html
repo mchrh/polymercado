@@ -2,6 +2,9 @@
 {% block content %}
 <div class="section-card">
   <h2>Alerts</h2>
+  <div class="actions">
+    <a href="/alerts/rules">Manage rules</a>
+  </div>
   <table class="table">
     <thead>
       <tr>
@@ -10,16 +13,35 @@
         <th>Severity</th>
         <th>Status</th>
         <th>Channel</th>
+        <th>Ack</th>
       </tr>
     </thead>
     <tbody>
-      {% for signal, alert in rows %}
+      {% for row in rows %}
+      {% set signal = row.signal %}
+      {% set alert = row.alert %}
       <tr>
         <td>{{ signal.created_at }}</td>
-        <td>{{ signal.signal_type }}</td>
+        <td><a href="/signals/{{ signal.id }}">{{ signal.signal_type }}</a></td>
         <td>{{ signal.severity }}</td>
         <td>{{ alert.status if alert else "-" }}</td>
         <td>{{ alert.channel if alert else "-" }}</td>
+        <td>
+          {% if row.ack %}
+            Acked until {{ row.ack.acked_until }}
+          {% else %}
+            <form class="inline-form" method="post" action="/alerts/ack">
+              <input type="hidden" name="notification_key" value="{{ row.notification_key }}" />
+              <input type="hidden" name="hours" value="1" />
+              <button class="secondary" type="submit">Ack 1h</button>
+            </form>
+            <form class="inline-form" method="post" action="/alerts/ack">
+              <input type="hidden" name="notification_key" value="{{ row.notification_key }}" />
+              <input type="hidden" name="hours" value="24" />
+              <button class="secondary" type="submit">Ack 24h</button>
+            </form>
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

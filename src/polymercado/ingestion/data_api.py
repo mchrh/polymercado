@@ -5,7 +5,7 @@ from decimal import Decimal
 from typing import Any
 
 import httpx
-from sqlalchemy import func, select
+from sqlalchemy import delete, func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from sqlalchemy.orm import Session
@@ -20,6 +20,7 @@ from polymercado.models import (
     Trade,
     TradeSide,
     Wallet,
+    WalletMarketExposure,
 )
 from polymercado.signals.wallets import (
     build_trade_payload,
@@ -29,6 +30,7 @@ from polymercado.signals.wallets import (
 )
 from polymercado.trades import compute_notional, parse_trade_ts, trade_dedupe_key
 from polymercado.utils import to_decimal, utc_now
+from polymercado.utils import safe_lower
 
 DATA_BASE = "https://data-api.polymarket.com"
 
@@ -93,6 +95,107 @@ def sync_open_interest(session: Session, settings: AppSettings) -> int:
 
     session.commit()
     return processed
+
+
+def sync_wallet_positions(session: Session, settings: AppSettings) -> int:
+    if not settings.WALLET_POSITIONS_ENABLED:
+        return 0
+
+    now = utc_now()
+    wallets = (
+        session.execute(
+            select(Wallet).where(
+                Wallet.tracked_until.is_not(None), Wallet.tracked_until >= now
+            )
+        )
+        .scalars()
+        .all()
+    )
+    if not wallets:
+        return 0
+
+    client = httpx.Client(timeout=settings.HTTP_TIMEOUT_SECONDS)
+    processed = 0
+    try:
+        for wallet in wallets:
+            params = {
+                "user": wallet.wallet,
+                "limit": settings.POSITIONS_PAGE_LIMIT,
+                "offset": 0,
+                "sizeThreshold": settings.POSITIONS_SIZE_THRESHOLD,
+            }
+            positions = fetch_json(client, f"{DATA_BASE}/positions", params=params)
+            _upsert_wallet_positions(session, wallet.wallet, positions)
+            processed += len(positions)
+    finally:
+        client.close()
+
+    session.commit()
+    return processed
+
+
+def _upsert_wallet_positions(
+    session: Session, wallet: str, positions: list[dict[str, Any]]
+) -> None:
+    aggregates: dict[str, dict[str, Decimal]] = {}
+    for position in positions:
+        condition_id = position.get("conditionId")
+        size = to_decimal(position.get("size"))
+        if not condition_id or size is None:
+            continue
+        avg_price = to_decimal(position.get("avgPrice"))
+        outcome = safe_lower(position.get("outcome"))
+        sign = Decimal("-1") if outcome == "no" else Decimal("1")
+
+        bucket = aggregates.setdefault(
+            condition_id,
+            {
+                "net": Decimal("0"),
+                "cost": Decimal("0"),
+                "total": Decimal("0"),
+            },
+        )
+        bucket["net"] += size * sign
+        if avg_price is not None:
+            bucket["cost"] += abs(size) * avg_price
+        bucket["total"] += abs(size)
+
+    now = utc_now()
+    active_conditions = set(aggregates.keys())
+    if active_conditions:
+        session.execute(
+            delete(WalletMarketExposure).where(
+                WalletMarketExposure.wallet == wallet,
+                ~WalletMarketExposure.condition_id.in_(active_conditions),
+            )
+        )
+    else:
+        session.execute(
+            delete(WalletMarketExposure).where(WalletMarketExposure.wallet == wallet)
+        )
+
+    for condition_id, bucket in aggregates.items():
+        total = bucket["total"]
+        avg_entry = bucket["cost"] / total if total > 0 else None
+        insert_stmt = _dialect_insert(session)(WalletMarketExposure).values(
+            wallet=wallet,
+            condition_id=condition_id,
+            net_shares=bucket["net"],
+            avg_entry_price=avg_entry,
+            last_updated_at=now,
+        )
+        stmt = insert_stmt.on_conflict_do_update(
+            index_elements=[
+                WalletMarketExposure.wallet,
+                WalletMarketExposure.condition_id,
+            ],
+            set_={
+                "net_shares": insert_stmt.excluded.net_shares,
+                "avg_entry_price": insert_stmt.excluded.avg_entry_price,
+                "last_updated_at": insert_stmt.excluded.last_updated_at,
+            },
+        )
+        session.execute(stmt)
 
 
 def sync_large_trades(session: Session, settings: AppSettings) -> int:
@@ -188,6 +291,11 @@ def _update_wallets_and_signals(
     wallet_address = trade.get("proxyWallet")
     wallet = None
     wallet_was_dormant = False
+    track_until = None
+    if settings.TRACK_WALLET_DAYS_AFTER_LARGE_TRADE > 0:
+        track_until = utc_now() + timedelta(
+            days=settings.TRACK_WALLET_DAYS_AFTER_LARGE_TRADE
+        )
     if wallet_address:
         wallet = session.get(Wallet, wallet_address)
 
@@ -197,6 +305,7 @@ def _update_wallets_and_signals(
                 first_seen_at=utc_now(),
                 last_seen_at=utc_now(),
                 first_trade_ts=trade_ts,
+                tracked_until=track_until,
                 lifetime_notional_usd=notional,
             )
             session.add(wallet)
@@ -208,6 +317,10 @@ def _update_wallets_and_signals(
                 if wallet.lifetime_notional_usd is not None
                 else notional
             )
+            if track_until and (
+                wallet.tracked_until is None or wallet.tracked_until < track_until
+            ):
+                wallet.tracked_until = track_until
 
     market_metrics = _latest_market_metrics(session, trade.get("conditionId"))
     low_liquidity = False

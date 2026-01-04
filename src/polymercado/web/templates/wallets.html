@@ -2,6 +2,26 @@
 {% block content %}
 <div class="section-card">
   <h2>Wallets</h2>
+  <form class="filters" method="get">
+    <div class="form-row">
+      <label>Sort</label>
+      <select name="sort">
+        <option value="last_seen" {% if filters.sort == "last_seen" %}selected{% endif %}>Last seen</option>
+        <option value="first_seen" {% if filters.sort == "first_seen" %}selected{% endif %}>First seen</option>
+        <option value="notional" {% if filters.sort == "notional" %}selected{% endif %}>Lifetime notional</option>
+      </select>
+      <label>New days</label>
+      <input name="new_days" value="{{ filters.new_days }}" placeholder="14" />
+      <label class="checkbox">
+        <input type="checkbox" name="new_only" value="true" {% if filters.new_only %}checked{% endif %} />
+        New wallets
+      </label>
+    </div>
+    <button type="submit">Apply filters</button>
+  </form>
+</div>
+
+<div class="section-card">
   <table class="table">
     <thead>
       <tr>
@@ -9,6 +29,7 @@
         <th>First Seen</th>
         <th>Last Seen</th>
         <th>Lifetime Notional</th>
+        <th>Tracked Until</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +39,7 @@
         <td>{{ wallet.first_seen_at }}</td>
         <td>{{ wallet.last_seen_at }}</td>
         <td>{{ wallet.lifetime_notional_usd }}</td>
+        <td>{{ wallet.tracked_until or "-" }}</td>
       </tr>
       {% endfor %}
     </tbody>

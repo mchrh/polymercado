@@ -2,6 +2,26 @@
 {% block content %}
 <div class="section-card">
   <h2>Whale Tape</h2>
+  <form class="filters" method="get">
+    <div class="form-row">
+      <label>Min notional</label>
+      <input name="min_notional" value="{{ filters.min_notional }}" placeholder="10000" />
+      <label>Wallet</label>
+      <input name="wallet" value="{{ filters.wallet }}" placeholder="0x..." />
+      <label>Market</label>
+      <input name="market" value="{{ filters.market }}" placeholder="0x..." />
+      <label>Hours</label>
+      <input name="hours" value="{{ filters.hours }}" placeholder="24" />
+      <label class="checkbox">
+        <input type="checkbox" name="new_only" value="true" {% if filters.new_only %}checked{% endif %} />
+        New only
+      </label>
+    </div>
+    <button type="submit">Apply filters</button>
+  </form>
+</div>
+
+<div class="section-card">
   <table class="table">
     <thead>
       <tr>
@@ -16,10 +36,14 @@
       {% for signal in signals %}
       <tr>
         <td>{{ signal.created_at }}</td>
-        <td class="mono">{{ signal.wallet }}</td>
+        <td class="mono"><a href="/wallets/{{ signal.wallet }}">{{ signal.wallet }}</a></td>
         <td>{{ signal.signal_type }}</td>
         <td>{{ signal.payload.get("notional_usd") }}</td>
-        <td>{{ signal.payload.get("market_title") }}</td>
+        <td>
+          <a href="/markets/{{ signal.condition_id }}">
+            {{ signal.payload.get("market_title") or signal.condition_id }}
+          </a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

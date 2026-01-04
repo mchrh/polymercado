@@ -14,7 +14,9 @@ Left nav:
 - Whale tape
 - Wallets
 - Alerts
+- Alert rules
 - Config (admin)
+- Quality (data checks)
 
 ## Pages
 
@@ -102,4 +104,3 @@ Every signal detail page must show:
 - the raw computed numbers (edge, q_max, notional, etc)
 - timestamps and source freshness
 - a small excerpt of the underlying data (book levels or trade payload)
-

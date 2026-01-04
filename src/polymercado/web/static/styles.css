@@ -95,6 +95,10 @@ main {
   color: #fff;
 }
 
+.badge.warn {
+  background: var(--accent);
+}
+
 .mono {
   font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
   font-size: 12px;
@@ -124,7 +128,7 @@ main {
   gap: 10px;
 }
 
-input, textarea {
+input, textarea, select {
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid var(--border);
@@ -139,6 +143,56 @@ button {
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
+}
+
+button.secondary {
+  background: var(--accent-2);
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.checkbox {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.inline-form {
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.subtle {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 8px 0;
+}
+
+.code-block {
+  background: #f8f0e2;
+  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
 }
 
 @media (max-width: 720px) {

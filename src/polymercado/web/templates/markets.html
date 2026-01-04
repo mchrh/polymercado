@@ -2,29 +2,105 @@
 {% block content %}
 <div class="section-card">
   <h2>Markets</h2>
+  <form class="filters" method="get">
+    <div class="form-row">
+      <label>Include tags</label>
+      <input name="include_tags" value="{{ filters.include_tags }}" placeholder="1,2" />
+      <label>Exclude tags</label>
+      <input name="exclude_tags" value="{{ filters.exclude_tags }}" placeholder="3" />
+    </div>
+    <div class="form-row">
+      <label>Min volume</label>
+      <input name="min_volume" value="{{ filters.min_volume }}" placeholder="50000" />
+      <label>Min liquidity</label>
+      <input name="min_liquidity" value="{{ filters.min_liquidity }}" placeholder="10000" />
+      <label>Min OI</label>
+      <input name="min_oi" value="{{ filters.min_oi }}" placeholder="5000" />
+      <label>Max spread</label>
+      <input name="max_spread" value="{{ filters.max_spread }}" placeholder="0.05" />
+    </div>
+    <div class="form-row">
+      <label>Sort</label>
+      <select name="sort">
+        <option value="score" {% if filters.sort == "score" %}selected{% endif %}>Composite</option>
+        <option value="volume" {% if filters.sort == "volume" %}selected{% endif %}>Volume</option>
+        <option value="liquidity" {% if filters.sort == "liquidity" %}selected{% endif %}>Liquidity</option>
+        <option value="oi" {% if filters.sort == "oi" %}selected{% endif %}>Open Interest</option>
+        <option value="spread" {% if filters.sort == "spread" %}selected{% endif %}>Tightest Spread</option>
+        <option value="newest" {% if filters.sort == "newest" %}selected{% endif %}>Newest</option>
+      </select>
+      <label>Active</label>
+      <select name="active">
+        <option value="" {% if not filters.active %}selected{% endif %}>Any</option>
+        <option value="true" {% if filters.active == "true" %}selected{% endif %}>Active</option>
+        <option value="false" {% if filters.active == "false" %}selected{% endif %}>Inactive</option>
+      </select>
+      <label>Closed</label>
+      <select name="closed">
+        <option value="" {% if not filters.closed %}selected{% endif %}>Any</option>
+        <option value="false" {% if filters.closed == "false" %}selected{% endif %}>Open</option>
+        <option value="true" {% if filters.closed == "true" %}selected{% endif %}>Closed</option>
+      </select>
+      <label class="checkbox">
+        <input type="checkbox" name="tracked" value="true" {% if filters.tracked %}checked{% endif %} />
+        Tracked only
+      </label>
+    </div>
+    <button type="submit">Apply filters</button>
+  </form>
+</div>
+
+<div class="section-card">
   <table class="table">
     <thead>
       <tr>
         <th>Title</th>
-        <th>Condition</th>
+        <th>Tags</th>
+        <th>End</th>
         <th>Volume</th>
         <th>Liquidity</th>
         <th>Open Interest</th>
         <th>Spread Y/N</th>
+        <th>Depth 1c Y/N</th>
+        <th>Score</th>
+        <th>Status</th>
+        <th>Track</th>
       </tr>
     </thead>
     <tbody>
-      {% for market, volume, liquidity, oi, spread_yes, spread_no in rows %}
+      {% for item in items %}
+      {% set market = item.market %}
       <tr>
         <td>
           <a href="/markets/{{ market.condition_id }}">{{ market.title or market.question }}</a>
           {% if market.neg_risk %}<span class="badge">neg risk</span>{% endif %}
+          {% if item.ends_soon %}<span class="badge warn">ends soon</span>{% endif %}
         </td>
-        <td class="mono">{{ market.condition_id }}</td>
-        <td>{{ volume or "-" }}</td>
-        <td>{{ liquidity or "-" }}</td>
-        <td>{{ oi or "-" }}</td>
-        <td>{{ spread_yes or "-" }} / {{ spread_no or "-" }}</td>
+        <td class="mono">{{ market.tag_ids or "-" }}</td>
+        <td>{{ market.end_time or "-" }}</td>
+        <td>{{ item.volume or "-" }}</td>
+        <td>{{ item.liquidity or "-" }}</td>
+        <td>{{ item.open_interest or "-" }}</td>
+        <td>{{ item.spread_yes or "-" }} / {{ item.spread_no or "-" }}</td>
+        <td>{{ item.depth_yes or "-" }} / {{ item.depth_no or "-" }}</td>
+        <td>{{ "%.4f"|format(item.score) }}</td>
+        <td>
+          {% if market.active %}active{% endif %}
+          {% if market.closed %}closed{% endif %}
+        </td>
+        <td>
+          {% if item.tracked %}
+            <form class="inline-form" method="post" action="/markets/{{ market.condition_id }}/untrack">
+              <input type="hidden" name="next_url" value="{{ request.url }}" />
+              <button class="secondary" type="submit">Untrack</button>
+            </form>
+          {% else %}
+            <form class="inline-form" method="post" action="/markets/{{ market.condition_id }}/track">
+              <input type="hidden" name="next_url" value="{{ request.url }}" />
+              <button type="submit">Track</button>
+            </form>
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

@@ -2,6 +2,24 @@
 {% block content %}
 <div class="section-card">
   <h2>Arb Screener</h2>
+  <form class="filters" method="get">
+    <div class="form-row">
+      <label>Min edge</label>
+      <input name="min_edge" value="{{ filters.min_edge }}" placeholder="0.01" />
+      <label>Min q</label>
+      <input name="min_q" value="{{ filters.min_q }}" placeholder="100" />
+      <label>Sort</label>
+      <select name="sort">
+        <option value="edge" {% if filters.sort == "edge" %}selected{% endif %}>Edge</option>
+        <option value="q_max" {% if filters.sort == "q_max" %}selected{% endif %}>Q max</option>
+        <option value="recent" {% if filters.sort == "recent" %}selected{% endif %}>Recent</option>
+      </select>
+    </div>
+    <button type="submit">Apply filters</button>
+  </form>
+</div>
+
+<div class="section-card">
   <table class="table">
     <thead>
       <tr>
@@ -13,10 +31,15 @@
       </tr>
     </thead>
     <tbody>
-      {% for signal in signals %}
+      {% for row in rows %}
+      {% set signal = row.signal %}
       <tr>
         <td>{{ signal.created_at }}</td>
-        <td class="mono">{{ signal.condition_id }}</td>
+        <td>
+          <a href="/markets/{{ signal.condition_id }}">
+            {{ row.market.title if row.market else signal.condition_id }}
+          </a>
+        </td>
         <td>{{ signal.payload.get("edge_at_q_max") }}</td>
         <td>{{ signal.payload.get("q_max") }}</td>
         <td>{{ signal.payload.get("top_of_book_sum") }}</td>

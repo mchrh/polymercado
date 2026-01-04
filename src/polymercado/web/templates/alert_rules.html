@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>Alert Rules</h2>
+  <form class="form" method="post" action="/alerts/rules">
+    <input type="hidden" name="rule_id" value="" />
+    <label>Name</label>
+    <input name="name" placeholder="High edge arbs" />
+    <label>Priority</label>
+    <input name="priority" value="100" />
+    <label class="checkbox">
+      <input type="checkbox" name="enabled" value="on" checked />
+      Enabled
+    </label>
+    <label>Rule JSON</label>
+    <textarea name="rule_json" rows="6">{"when": {"signal_type": "ARB_BUY_BOTH"}, "actions": {"channels": ["log"], "cooldown_seconds": 600}}</textarea>
+    <button type="submit">Create rule</button>
+  </form>
+</div>
+
+{% for rule in rules %}
+<div class="section-card">
+  <div class="actions">
+    <strong>{{ rule.name or "(unnamed)" }}</strong>
+    <form class="inline-form" method="post" action="/alerts/rules/{{ rule.id }}/toggle">
+      <button class="secondary" type="submit">{% if rule.enabled %}Disable{% else %}Enable{% endif %}</button>
+    </form>
+  </div>
+  <form class="form" method="post" action="/alerts/rules">
+    <input type="hidden" name="rule_id" value="{{ rule.id }}" />
+    <label>Name</label>
+    <input name="name" value="{{ rule.name }}" />
+    <label>Priority</label>
+    <input name="priority" value="{{ rule.priority }}" />
+    <label class="checkbox">
+      <input type="checkbox" name="enabled" value="on" {% if rule.enabled %}checked{% endif %} />
+      Enabled
+    </label>
+    <label>Rule JSON</label>
+    <textarea name="rule_json" rows="8">{{ rule.rule | tojson }}</textarea>
+    <button type="submit">Save</button>
+  </form>
+</div>
+{% endfor %}
+{% endblock %}

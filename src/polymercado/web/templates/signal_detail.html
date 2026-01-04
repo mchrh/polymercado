@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-card">
+  <h2>Signal {{ signal.id }}</h2>
+  <div class="kv"><span>Type</span><span>{{ signal.signal_type }}</span></div>
+  <div class="kv"><span>Severity</span><span>{{ signal.severity }}</span></div>
+  <div class="kv"><span>Created</span><span>{{ signal.created_at }}</span></div>
+  <div class="kv"><span>Wallet</span><span>{{ signal.wallet or "-" }}</span></div>
+  <div class="kv"><span>Market</span><span>{{ signal.condition_id or "-" }}</span></div>
+</div>
+
+<div class="section-card">
+  <h2>Payload</h2>
+  <pre class="code-block">{{ payload }}</pre>
+</div>
+{% endblock %}

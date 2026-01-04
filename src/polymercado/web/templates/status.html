@@ -25,4 +25,32 @@
     </tbody>
   </table>
 </div>
+
+<div class="section-card">
+  <h2>Recent Data Quality Issues</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Check</th>
+        <th>Severity</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for issue in issues %}
+      <tr>
+        <td>{{ issue.created_at }}</td>
+        <td>{{ issue.check_name }}</td>
+        <td>{{ issue.severity }}</td>
+        <td>{{ issue.message }}</td>
+      </tr>
+      {% endfor %}
+      {% if issues|length == 0 %}
+      <tr><td colspan="4">No issues logged.</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+  <a href="/quality">View all issues</a>
+</div>
 {% endblock %}

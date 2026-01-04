@@ -2,46 +2,136 @@
 {% block content %}
 <div class="section-card">
   <h2>{{ market.title or market.question }}</h2>
-  <div class="grid">
-    <div>
-      <div class="kv"><span>Condition</span><span class="mono">{{ market.condition_id }}</span></div>
-      <div class="kv"><span>Slug</span><span>{{ market.slug or "-" }}</span></div>
-      <div class="kv"><span>Neg Risk</span><span>{{ market.neg_risk }}</span></div>
-      <div class="kv"><span>Ends</span><span>{{ market.end_time or "-" }}</span></div>
-    </div>
-    <div>
-      <div class="kv"><span>Token IDs</span><span class="mono">{{ market.token_ids }}</span></div>
-      <div class="kv"><span>Outcomes</span><span>{{ market.outcomes }}</span></div>
-    </div>
+  <div class="kv"><span>Condition</span><span class="mono">{{ market.condition_id }}</span></div>
+  <div class="kv"><span>Slug</span><span>{{ market.slug or "-" }}</span></div>
+  <div class="kv"><span>Tags</span><span>{{ market.tag_ids or "-" }}</span></div>
+  <div class="kv"><span>Neg risk</span><span>{{ market.neg_risk or "-" }}</span></div>
+  <div class="kv"><span>Active</span><span>{{ market.active }}</span></div>
+  <div class="kv"><span>Closed</span><span>{{ market.closed }}</span></div>
+  <div class="kv"><span>End</span><span>{{ market.end_time or "-" }}</span></div>
+  <div class="kv"><span>Token IDs</span><span class="mono">{{ market.token_ids or "-" }}</span></div>
+  {% if tracked %}
+    <form class="inline-form" method="post" action="/markets/{{ market.condition_id }}/untrack">
+      <input type="hidden" name="next_url" value="{{ request.url }}" />
+      <button class="secondary" type="submit">Untrack market</button>
+    </form>
+  {% else %}
+    <form class="inline-form" method="post" action="/markets/{{ market.condition_id }}/track">
+      <input type="hidden" name="next_url" value="{{ request.url }}" />
+      <button type="submit">Track market</button>
+    </form>
+  {% endif %}
+</div>
+
+<div class="grid">
+  <div class="section-card">
+    <h2>Orderbooks</h2>
+    <div class="subtle">YES token: {{ yes_token or "-" }}</div>
+    {% for book in orderbooks if book.token_id == yes_token %}
+      <h3>{{ book.side }} (as of {{ book.as_of or "-" }})</h3>
+      <table class="table">
+        <thead>
+          <tr><th>Price</th><th>Size</th></tr>
+        </thead>
+        <tbody>
+          {% for level in (book.levels or [])[:10] %}
+          <tr>
+            <td>{{ level.price if level.price is defined else level.get("price") }}</td>
+            <td>{{ level.size if level.size is defined else level.get("size") }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+
+    <div class="subtle">NO token: {{ no_token or "-" }}</div>
+    {% for book in orderbooks if book.token_id == no_token %}
+      <h3>{{ book.side }} (as of {{ book.as_of or "-" }})</h3>
+      <table class="table">
+        <thead>
+          <tr><th>Price</th><th>Size</th></tr>
+        </thead>
+        <tbody>
+          {% for level in (book.levels or [])[:10] %}
+          <tr>
+            <td>{{ level.price if level.price is defined else level.get("price") }}</td>
+            <td>{{ level.size if level.size is defined else level.get("size") }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </div>
+
+  <div class="section-card">
+    <h2>Arb Panel</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Q</th>
+          <th>Avg Ask YES</th>
+          <th>Avg Ask NO</th>
+          <th>Edge</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in arb_rows %}
+        <tr>
+          <td>{{ row.q }}</td>
+          <td>{{ row.avg_yes or "-" }}</td>
+          <td>{{ row.avg_no or "-" }}</td>
+          <td>{{ row.edge or "-" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="section-card">
+    <h2>Wallet Activity (24h)</h2>
+    <table class="table">
+      <thead>
+        <tr><th>Wallet</th><th>Notional</th></tr>
+      </thead>
+      <tbody>
+        {% for wallet, notional in wallets_24h %}
+        <tr>
+          <td class="mono"><a href="/wallets/{{ wallet }}">{{ wallet }}</a></td>
+          <td>{{ notional }}</td>
+        </tr>
+        {% endfor %}
+        {% if wallets_24h|length == 0 %}
+        <tr><td colspan="2">No recent activity.</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-card">
+    <h2>Wallet Activity (7d)</h2>
+    <table class="table">
+      <thead>
+        <tr><th>Wallet</th><th>Notional</th></tr>
+      </thead>
+      <tbody>
+        {% for wallet, notional in wallets_7d %}
+        <tr>
+          <td class="mono"><a href="/wallets/{{ wallet }}">{{ wallet }}</a></td>
+          <td>{{ notional }}</td>
+        </tr>
+        {% endfor %}
+        {% if wallets_7d|length == 0 %}
+        <tr><td colspan="2">No activity in 7d.</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
   </div>
 </div>
 
 <div class="section-card">
-  <h3>Orderbooks</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Token</th>
-        <th>Side</th>
-        <th>As Of</th>
-        <th>Levels</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for book in orderbooks %}
-      <tr>
-        <td class="mono">{{ book.token_id }}</td>
-        <td>{{ book.side }}</td>
-        <td>{{ book.as_of or "-" }}</td>
-        <td class="mono">{{ book.levels[:4] }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-<div class="section-card">
-  <h3>Recent Trades</h3>
+  <h2>Large Trades</h2>
   <table class="table">
     <thead>
       <tr>
@@ -57,7 +147,7 @@
       {% for trade in trades %}
       <tr>
         <td>{{ trade.trade_ts }}</td>
-        <td class="mono">{{ trade.wallet or "-" }}</td>
+        <td class="mono"><a href="/wallets/{{ trade.wallet }}">{{ trade.wallet }}</a></td>
         <td>{{ trade.side }}</td>
         <td>{{ trade.size }}</td>
         <td>{{ trade.price }}</td>
@@ -69,23 +159,21 @@
 </div>
 
 <div class="section-card">
-  <h3>Signals</h3>
+  <h2>Signals</h2>
   <table class="table">
     <thead>
       <tr>
         <th>Time</th>
         <th>Type</th>
         <th>Severity</th>
-        <th>Payload</th>
       </tr>
     </thead>
     <tbody>
       {% for signal in signals %}
       <tr>
         <td>{{ signal.created_at }}</td>
-        <td>{{ signal.signal_type }}</td>
+        <td><a href="/signals/{{ signal.id }}">{{ signal.signal_type }}</a></td>
         <td>{{ signal.severity }}</td>
-        <td class="mono">{{ signal.payload }}</td>
       </tr>
       {% endfor %}
     </tbody>

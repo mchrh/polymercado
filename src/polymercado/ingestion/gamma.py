@@ -41,6 +41,13 @@ def parse_market(market: dict[str, Any], event: dict[str, Any]) -> dict[str, Any
     if neg_risk is None:
         neg_risk = event.get("negRisk")
 
+    active = market.get("active")
+    if active is None:
+        active = event.get("active")
+    closed = market.get("closed")
+    if closed is None:
+        closed = event.get("closed")
+
     return {
         "condition_id": market.get("conditionId"),
         "market_id": market.get("id"),
@@ -48,6 +55,8 @@ def parse_market(market: dict[str, Any], event: dict[str, Any]) -> dict[str, Any
         "slug": market.get("slug"),
         "question": market.get("question"),
         "title": market.get("question") or event.get("title"),
+        "active": active,
+        "closed": closed,
         "tag_ids": tag_ids or None,
         "neg_risk": neg_risk,
         "outcomes": outcomes or None,
@@ -77,6 +86,8 @@ def upsert_market(session: Session, values: dict[str, Any]) -> None:
             "slug",
             "question",
             "title",
+            "active",
+            "closed",
             "tag_ids",
             "neg_risk",
             "outcomes",

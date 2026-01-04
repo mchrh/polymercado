@@ -17,6 +17,18 @@ from polymercado.utils import parse_datetime, utc_now
 CLOB_BASE = "https://clob.polymarket.com"
 
 
+def _extract_levels(
+    book: dict[str, Any],
+) -> tuple[list[dict[str, Any]] | None, list[dict[str, Any]] | None]:
+    bids = book.get("bids")
+    asks = book.get("asks")
+    if bids is None and "buys" in book:
+        bids = book.get("buys")
+    if asks is None and "sells" in book:
+        asks = book.get("sells")
+    return bids, asks
+
+
 def _dialect_insert(session: Session):
     if session.bind and session.bind.dialect.name == "sqlite":
         return sqlite_insert
@@ -39,9 +51,10 @@ def upsert_orderbook(session: Session, book: dict[str, Any]) -> None:
         return
 
     as_of = parse_datetime(book.get("timestamp"))
+    bids, asks = _extract_levels(book)
     for side, levels in (
-        (OrderbookSide.BID, book.get("bids")),
-        (OrderbookSide.ASK, book.get("asks")),
+        (OrderbookSide.BID, bids),
+        (OrderbookSide.ASK, asks),
     ):
         if levels is None:
             continue
@@ -120,8 +133,9 @@ def _emit_metric_snapshot(
         token_id = book.get("asset_id")
         if not condition_id or not token_id:
             continue
-        bids = book.get("bids") or []
-        asks = book.get("asks") or []
+        bids, asks = _extract_levels(book)
+        bids = bids or []
+        asks = asks or []
         best_bid = float(bids[0]["price"]) if bids else None
         best_ask = float(asks[0]["price"]) if asks else None
         best_prices[token_id] = {"bid": best_bid, "ask": best_ask}

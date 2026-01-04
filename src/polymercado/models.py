@@ -57,6 +57,8 @@ class Market(Base):
     slug: Mapped[str | None] = mapped_column(String, nullable=True)
     question: Mapped[str | None] = mapped_column(String, nullable=True)
     title: Mapped[str | None] = mapped_column(String, nullable=True)
+    active: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    closed: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
     tag_ids: Mapped[list[int] | None] = mapped_column(JSON, nullable=True)
     neg_risk: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
     outcomes: Mapped[list[str] | None] = mapped_column(JSON, nullable=True)
@@ -66,6 +68,18 @@ class Market(Base):
     created_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     updated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     last_seen_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class TrackedMarket(Base):
+    __tablename__ = "tracked_markets"
+
+    condition_id: Mapped[str] = mapped_column(String, primary_key=True)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    source: Mapped[str | None] = mapped_column(String, nullable=True)
+    created_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    __table_args__ = (Index("ix_tracked_enabled", "enabled"),)
 
 
 class MarketMetricsTS(Base):
@@ -138,6 +152,7 @@ class Wallet(Base):
     first_seen_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     last_seen_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     first_trade_ts: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    tracked_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     lifetime_notional_usd: Mapped[float] = mapped_column(Numeric(24, 8))
     last_7d_notional_usd: Mapped[float | None] = mapped_column(
         Numeric(24, 8), nullable=True
@@ -195,6 +210,34 @@ class AlertLog(Base):
     )
 
 
+class AlertRule(Base):
+    __tablename__ = "alert_rules"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    priority: Mapped[int] = mapped_column(Integer, default=100)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    name: Mapped[str | None] = mapped_column(String, nullable=True)
+    rule: Mapped[dict[str, Any]] = mapped_column(JSON)
+    created_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    updated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    __table_args__ = (Index("ix_alert_rules_priority", "priority"),)
+
+
+class AlertAck(Base):
+    __tablename__ = "alert_ack"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    notification_key: Mapped[str] = mapped_column(String)
+    acked_until: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    created_by: Mapped[str | None] = mapped_column(String, nullable=True)
+
+    __table_args__ = (
+        Index("ix_alert_ack_notification", "notification_key", "acked_until"),
+    )
+
+
 class AppConfig(Base):
     __tablename__ = "app_config"
 
@@ -215,3 +258,15 @@ class JobRun(Base):
     last_duration_ms: Mapped[float | None] = mapped_column(
         Numeric(18, 3), nullable=True
     )
+
+
+class DataQualityIssue(Base):
+    __tablename__ = "data_quality_issues"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    check_name: Mapped[str] = mapped_column(String)
+    severity: Mapped[int] = mapped_column(Integer)
+    message: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+    __table_args__ = (Index("ix_quality_created", "created_at"),)

@@ -64,9 +64,7 @@ def build_trade_payload(
     if wallet:
         payload["wallet_first_seen_at"] = wallet.first_seen_at.isoformat()
         payload["wallet_age_days"] = (
-            (wallet.last_seen_at - wallet.first_seen_at).days
-            if wallet.last_seen_at and wallet.first_seen_at
-            else None
+            (trade_ts - wallet.first_seen_at).days if wallet.first_seen_at else None
         )
     if market_metrics:
         payload.update(market_metrics)

@@ -28,6 +28,7 @@
 - `SYNC_OI_INTERVAL_SECONDS` (default 300)
 - `SYNC_UNIVERSE_INTERVAL_SECONDS` (default 900)
 - `ORDERBOOK_SNAPSHOT_INTERVAL_SECONDS` (default 300) (websocket heal)
+- `SYNC_POSITIONS_INTERVAL_SECONDS` (default 600)
 - `GAMMA_EVENTS_PAGE_LIMIT` (default 100)
 - `GAMMA_EVENTS_MAX_PAGES` (default 50)
 - `TRADES_PAGE_LIMIT` (default 500)
@@ -39,6 +40,11 @@
 - `MIN_GAMMA_VOLUME` (default 50000) (USD, heuristic)
 - `MIN_GAMMA_LIQUIDITY` (default 10000) (USD, heuristic)
 - `MIN_OPEN_INTEREST` (default 5000) (USD)
+- `MARKET_SCORE_W1` (default 1.0)
+- `MARKET_SCORE_W2` (default 1.0)
+- `MARKET_SCORE_W3` (default 1.5)
+- `MARKET_SCORE_W4` (default 0.5)
+- `MARKET_DEPTH_WITHIN_CENTS` (default 0.01)
 
 ### Wallet/trade signals
 
@@ -47,6 +53,9 @@
 - `NEW_WALLET_WINDOW_DAYS` (default 14)
 - `DORMANT_WINDOW_DAYS` (default 30)
 - `TRACK_WALLET_DAYS_AFTER_LARGE_TRADE` (default 7)
+- `WALLET_POSITIONS_ENABLED` (default true)
+- `POSITIONS_PAGE_LIMIT` (default 200)
+- `POSITIONS_SIZE_THRESHOLD` (default 1.0)
 
 ### Arbitrage signals
 
@@ -63,6 +72,8 @@
 - `ALERT_CHANNELS` (comma-separated: `slack,email,telegram`)
 - `ALERT_DEDUP_WINDOW_SECONDS` (default 600)
 - `ALERT_MIN_SEVERITY` (default 2)
+- `ALERT_RULES_ENABLED` (default false)
+- `ALERT_ACK_ENABLED` (default true)
 - `ALERT_SLACK_WEBHOOK_URL` (optional)
 - `ALERT_TELEGRAM_BOT_TOKEN` (optional)
 - `ALERT_TELEGRAM_CHAT_ID` (optional)
@@ -71,6 +82,16 @@
 
 - `CLOB_WS_ENABLED` (default false)
 - `CLOB_WS_PING_SECONDS` (default 10)
+- `CLOB_WS_URL` (default `wss://ws-subscriptions-clob.polymarket.com/ws/market`)
+- `CLOB_WS_FALLBACK_URLS` (default `wss://ws-subscriptions-clob.polymarket.com/ws/`)
+- `CLOB_WS_MAX_ASSETS` (default 400)
+
+### Data quality
+
+- `DATA_QUALITY_ENABLED` (default true)
+- `DATA_QUALITY_INTERVAL_SECONDS` (default 3600)
+- `DATA_QUALITY_TRADE_SAMPLE_LIMIT` (default 200)
+- `DATA_QUALITY_MAX_NEW_WALLETS_PER_HOUR` (default 500)
 
 ## Storage of config in DB
 

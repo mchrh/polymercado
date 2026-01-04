@@ -103,6 +103,7 @@ def run_signal_engine(session: Session, settings: AppSettings) -> int:
             "condition_id": market.condition_id,
             "yes_token_id": yes_token,
             "no_token_id": no_token,
+            "neg_risk": market.neg_risk,
             "as_of_yes": yes_asks.as_of.isoformat() if yes_asks.as_of else None,
             "as_of_no": no_asks.as_of.isoformat() if no_asks.as_of else None,
             "best_ask_yes": str(best_ask_yes),
