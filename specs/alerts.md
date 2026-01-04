@@ -25,11 +25,28 @@ Operators can “ack” a signal to silence repeats for a period.
 Rules are evaluated in order and can:
 - set severity thresholds
 - filter signal types
+- filter payload fields (min/max/equality or list membership)
 - route to channels
 - apply cooldown/quiet hours
 
 Example rule:
 - If `signal_type == ARB_BUY_BOTH` and `edge_at_q_max >= 0.015` and `q_max >= 500` → send to Slack `#arbs-high`.
+
+Example rule (exclude sports trades, raise threshold):
+```json
+{
+  "when": {
+    "signal_type": ["LARGE_TAKER_TRADE", "LARGE_NEW_WALLET_TRADE"],
+    "payload_min": {"notional_usd": 50000},
+    "payload_eq": {"market_is_sport": false}
+  },
+  "actions": {"channels": ["telegram"], "cooldown_seconds": 900}
+}
+```
+
+Payload list matching:
+- `payload_any`: require any overlap (e.g. `{"market_tag_slugs": ["politics", "crypto"]}`)
+- `payload_not_any`: exclude if any overlap (e.g. `{"market_tag_labels": ["sports"]}`)
 
 ## Dedupe strategy
 

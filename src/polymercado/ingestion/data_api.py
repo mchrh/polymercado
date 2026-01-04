@@ -14,9 +14,11 @@ from polymercado.config import AppSettings
 from polymercado.ingestion.http import fetch_json
 from polymercado.ingestion.universe import select_tracked_markets
 from polymercado.models import (
+    Market,
     MarketMetricsTS,
     SignalEvent,
     SignalType,
+    Tag,
     Trade,
     TradeSide,
     Wallet,
@@ -65,6 +67,56 @@ def _latest_market_metrics(
         "market_volume": float(row.gamma_volume) if row.gamma_volume else None,
         "market_open_interest": float(row.open_interest) if row.open_interest else None,
     }
+
+
+def _load_tag_index(session: Session) -> dict[int, Tag]:
+    tags = session.execute(select(Tag)).scalars().all()
+    return {tag.id: tag for tag in tags}
+
+
+def _market_tags_context(
+    session: Session,
+    condition_id: str | None,
+    market_cache: dict[str, Market],
+    tag_index: dict[int, Tag],
+) -> tuple[dict[str, Any], str | None, str | None]:
+    if not condition_id:
+        return {}, None, None
+    market = market_cache.get(condition_id)
+    if market is None:
+        market = session.get(Market, condition_id)
+        if market is not None:
+            market_cache[condition_id] = market
+    if market is None:
+        return {}, None, None
+
+    tag_ids: list[int] = []
+    labels: list[str] = []
+    slugs: list[str] = []
+    is_sport = False
+    for raw_id in market.tag_ids or []:
+        try:
+            tag_id = int(raw_id)
+        except (TypeError, ValueError):
+            continue
+        tag_ids.append(tag_id)
+        tag = tag_index.get(tag_id)
+        if tag is None:
+            continue
+        if tag.label:
+            labels.append(tag.label)
+        if tag.slug:
+            slugs.append(tag.slug)
+        if tag.is_sport:
+            is_sport = True
+
+    context = {
+        "market_tag_ids": tag_ids or None,
+        "market_tag_labels": labels or None,
+        "market_tag_slugs": slugs or None,
+        "market_is_sport": is_sport,
+    }
+    return context, market.title, market.slug
 
 
 def sync_open_interest(session: Session, settings: AppSettings) -> int:
@@ -204,6 +256,8 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
     inserted = 0
 
     wallet_cache: dict[str, Wallet] = {}
+    market_cache: dict[str, Market] = {}
+    tag_index = _load_tag_index(session)
 
     try:
         last_trade_ts = ensure_utc(_latest_trade_ts(session))
@@ -287,6 +341,8 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
                         trade_ts,
                         settings,
                         wallet_cache,
+                        market_cache,
+                        tag_index,
                     )
 
             session.commit()
@@ -311,6 +367,8 @@ def _update_wallets_and_signals(
     trade_ts: datetime,
     settings: AppSettings,
     wallet_cache: dict[str, Wallet],
+    market_cache: dict[str, Market],
+    tag_index: dict[int, Tag],
 ) -> None:
     wallet_address = trade.get("proxyWallet")
     wallet = None
@@ -354,7 +412,10 @@ def _update_wallets_and_signals(
             ):
                 wallet.tracked_until = desired_tracked_until
 
-    market_metrics = _latest_market_metrics(session, trade.get("conditionId"))
+    condition_id = trade.get("conditionId")
+    market_metrics = (
+        _latest_market_metrics(session, condition_id) if condition_id else None
+    )
     low_liquidity = False
     if market_metrics and market_metrics.get("market_liquidity") is not None:
         low_liquidity = (
@@ -364,6 +425,9 @@ def _update_wallets_and_signals(
     is_new = wallet is not None and is_new_wallet(wallet, trade_ts, settings)
     severity = severity_for_trade(notional, is_new=is_new, low_liquidity=low_liquidity)
 
+    market_context, market_title, market_slug = _market_tags_context(
+        session, condition_id, market_cache, tag_index
+    )
     payload = build_trade_payload(
         trade,
         wallet,
@@ -377,6 +441,9 @@ def _update_wallets_and_signals(
                 "DORMANT_WINDOW_DAYS",
             ]
         ),
+        market_context=market_context,
+        market_title=trade.get("title") or market_title,
+        market_slug=trade.get("slug") or market_slug,
     )
 
     _emit_signal(session, SignalType.LARGE_TAKER_TRADE, trade, payload, severity)

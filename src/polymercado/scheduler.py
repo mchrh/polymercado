@@ -14,7 +14,7 @@ from polymercado.ingestion.data_api import (
     sync_open_interest,
     sync_wallet_positions,
 )
-from polymercado.ingestion.gamma import sync_gamma_events
+from polymercado.ingestion.gamma import sync_gamma_events, sync_tag_metadata
 from polymercado.jobs import run_job
 from polymercado.quality import run_data_quality_checks
 from polymercado.signals.engine import run_signal_engine
@@ -45,6 +45,16 @@ def build_scheduler(
         "interval",
         seconds=settings.SYNC_GAMMA_EVENTS_INTERVAL_SECONDS,
         id="sync_gamma_events",
+        max_instances=1,
+        coalesce=True,
+    )
+    scheduler.add_job(
+        with_session(
+            "sync_tag_metadata", partial(sync_tag_metadata, settings=settings)
+        ),
+        "interval",
+        seconds=settings.SYNC_TAGS_INTERVAL_SECONDS,
+        id="sync_tag_metadata",
         max_instances=1,
         coalesce=True,
     )

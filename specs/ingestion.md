@@ -39,6 +39,14 @@ This universe drives websocket subscriptions and/or polling for `/book`.
   - Handle `clobTokenIds` as array or JSON string.
   - Prefer numeric `volumeNum`/`liquidityNum` when present.
 
+### `sync_tag_metadata`
+
+- Frequency: every **6–12 hours**
+- Pull:
+  - `GET /tags` for tag labels/slugs
+  - `GET /sports` for sports tag mapping
+- Upsert into `tags` and mark `is_sport` where relevant.
+
 ### `sync_open_interest`
 
 - Frequency: every **5 minutes**

@@ -13,7 +13,7 @@
       Enabled
     </label>
     <label>Rule JSON</label>
-    <textarea name="rule_json" rows="6">{"when": {"signal_type": "ARB_BUY_BOTH"}, "actions": {"channels": ["log"], "cooldown_seconds": 600}}</textarea>
+    <textarea name="rule_json" rows="6">{"when": {"signal_type": ["LARGE_TAKER_TRADE", "LARGE_NEW_WALLET_TRADE"], "payload_min": {"notional_usd": 50000}, "payload_eq": {"market_is_sport": false}}, "actions": {"channels": ["telegram"], "cooldown_seconds": 900}}</textarea>
     <button type="submit">Create rule</button>
   </form>
 </div>

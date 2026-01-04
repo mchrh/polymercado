@@ -159,6 +159,24 @@ def rule_matches(rule: dict[str, Any], signal: SignalEvent, now: datetime) -> bo
         if signal.payload.get(key) != expected:
             return False
 
+    payload_any = when.get("payload_any", {})
+    for key, expected in payload_any.items():
+        expected_set = _payload_values(expected)
+        if not expected_set:
+            continue
+        actual_set = _payload_values(signal.payload.get(key))
+        if not actual_set or actual_set.isdisjoint(expected_set):
+            return False
+
+    payload_not_any = when.get("payload_not_any", {})
+    for key, expected in payload_not_any.items():
+        expected_set = _payload_values(expected)
+        if not expected_set:
+            continue
+        actual_set = _payload_values(signal.payload.get(key))
+        if actual_set and not actual_set.isdisjoint(expected_set):
+            return False
+
     quiet = when.get("quiet_hours")
     if quiet:
         start = quiet.get("start")
@@ -177,6 +195,18 @@ def _payload_number(payload: dict[str, Any], key: str) -> float | None:
         return float(value)
     except (TypeError, ValueError):
         return None
+
+
+def _payload_values(value: Any) -> set[str]:
+    if value is None:
+        return set()
+    items = value if isinstance(value, list) else [value]
+    normalized: set[str] = set()
+    for item in items:
+        if item is None:
+            continue
+        normalized.add(str(item).strip().lower())
+    return normalized
 
 
 def _in_quiet_hours(now: datetime, start_hour: int, end_hour: int) -> bool:

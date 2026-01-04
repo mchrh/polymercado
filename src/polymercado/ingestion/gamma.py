@@ -5,11 +5,12 @@ from typing import Any
 import httpx
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
+from sqlalchemy import update
 from sqlalchemy.orm import Session
 
 from polymercado.config import AppSettings
 from polymercado.ingestion.http import fetch_json
-from polymercado.models import Market, MarketMetricsTS, SignalEvent, SignalType
+from polymercado.models import Market, MarketMetricsTS, SignalEvent, SignalType, Tag
 from polymercado.utils import parse_datetime, parse_jsonish_array, to_decimal, utc_now
 
 GAMMA_BASE = "https://gamma-api.polymarket.com"
@@ -19,6 +20,88 @@ def _dialect_insert(session: Session):
     if session.bind and session.bind.dialect.name == "sqlite":
         return sqlite_insert
     return pg_insert
+
+
+def _parse_tag_id(value: Any) -> int | None:
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def sync_tag_metadata(session: Session, settings: AppSettings) -> int:
+    client = httpx.Client(timeout=settings.HTTP_TIMEOUT_SECONDS)
+    processed = 0
+    try:
+        processed += _sync_tags(client, session, settings)
+        sport_tag_ids = _sync_sports(client)
+        if sport_tag_ids is not None:
+            session.execute(update(Tag).values(is_sport=False))
+            if sport_tag_ids:
+                session.execute(
+                    update(Tag)
+                    .where(Tag.id.in_(sorted(sport_tag_ids)))
+                    .values(is_sport=True)
+                )
+    finally:
+        client.close()
+
+    session.commit()
+    return processed
+
+
+def _sync_tags(client: httpx.Client, session: Session, settings: AppSettings) -> int:
+    processed = 0
+    offset = 0
+    limit = settings.TAGS_PAGE_LIMIT
+    for _ in range(settings.TAGS_MAX_PAGES):
+        params = {"limit": limit, "offset": offset}
+        tags = fetch_json(client, f"{GAMMA_BASE}/tags", params=params)
+        if not tags:
+            break
+        for tag in tags:
+            tag_id = _parse_tag_id(tag.get("id"))
+            if tag_id is None:
+                continue
+            insert_stmt = _dialect_insert(session)(Tag).values(
+                id=tag_id,
+                label=tag.get("label"),
+                slug=tag.get("slug"),
+            )
+            stmt = insert_stmt.on_conflict_do_update(
+                index_elements=[Tag.id],
+                set_={
+                    "label": insert_stmt.excluded.label,
+                    "slug": insert_stmt.excluded.slug,
+                },
+            )
+            session.execute(stmt)
+            processed += 1
+        if len(tags) < limit:
+            break
+        offset += limit
+    return processed
+
+
+def _sync_sports(client: httpx.Client) -> set[int] | None:
+    try:
+        sports = fetch_json(client, f"{GAMMA_BASE}/sports")
+    except httpx.HTTPError:
+        return None
+    if not sports:
+        return set()
+    tag_ids: set[int] = set()
+    for sport in sports:
+        raw = sport.get("tags") or ""
+        if not isinstance(raw, str):
+            continue
+        for part in raw.split(","):
+            tag_id = _parse_tag_id(part.strip())
+            if tag_id is not None:
+                tag_ids.add(tag_id)
+    return tag_ids
 
 
 def parse_market(market: dict[str, Any], event: dict[str, Any]) -> dict[str, Any]:

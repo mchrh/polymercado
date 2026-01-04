@@ -73,6 +73,7 @@ Payload (minimum):
 - `side`, `size_shares`, `price`, `notional_usd`
 - `market_slug`, `market_title`, `event_slug`, `outcome`
 - `tx_hash` (if present)
+- `market_tag_ids`, `market_tag_labels`, `market_tag_slugs`, `market_is_sport`
 - `wallet_first_seen_at`, `wallet_age_days`
 - `market_liquidity`, `market_volume`, `market_open_interest` (latest snapshots if available)
 

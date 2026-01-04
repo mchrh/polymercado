@@ -70,6 +70,17 @@ class Market(Base):
     last_seen_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
 
+class Tag(Base):
+    __tablename__ = "tags"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    label: Mapped[str | None] = mapped_column(String, nullable=True)
+    slug: Mapped[str | None] = mapped_column(String, nullable=True)
+    is_sport: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    __table_args__ = (Index("ix_tags_slug", "slug"),)
+
+
 class TrackedMarket(Base):
     __tablename__ = "tracked_markets"
 

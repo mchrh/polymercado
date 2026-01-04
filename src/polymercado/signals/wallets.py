@@ -48,6 +48,9 @@ def build_trade_payload(
     trade_ts: datetime,
     market_metrics: dict[str, Any] | None,
     config_snapshot: dict[str, Any],
+    market_context: dict[str, Any] | None = None,
+    market_title: str | None = None,
+    market_slug: str | None = None,
 ) -> dict[str, Any]:
     payload = {
         "wallet": trade.get("proxyWallet"),
@@ -58,8 +61,8 @@ def build_trade_payload(
         "size_shares": trade.get("size"),
         "price": trade.get("price"),
         "notional_usd": float(notional),
-        "market_slug": trade.get("slug"),
-        "market_title": trade.get("title"),
+        "market_slug": market_slug or trade.get("slug"),
+        "market_title": market_title or trade.get("title"),
         "event_slug": trade.get("eventSlug"),
         "outcome": trade.get("outcome"),
         "tx_hash": trade.get("transactionHash"),
@@ -73,4 +76,6 @@ def build_trade_payload(
         )
     if market_metrics:
         payload.update(market_metrics)
+    if market_context:
+        payload.update(market_context)
     return payload

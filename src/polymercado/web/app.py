@@ -11,11 +11,11 @@ from sqlalchemy import select
 
 from polymercado.config import load_settings
 from polymercado.db import get_session_factory, init_db
-from polymercado.ingestion.gamma import sync_gamma_events
+from polymercado.ingestion.gamma import sync_gamma_events, sync_tag_metadata
 from polymercado.jobs import run_job
 from polymercado.logging import get_logger, setup_logging
 from polymercado.ingestion.clob_ws import OrderbookWebsocket
-from polymercado.models import Market
+from polymercado.models import Market, Tag
 from polymercado.scheduler import build_scheduler
 from polymercado.web.routes import router
 
@@ -33,9 +33,19 @@ async def lifespan(app: FastAPI):
     session = session_factory()
     try:
         settings = load_settings(session)
+        has_tags = session.execute(select(Tag.id).limit(1)).first() is not None
         has_markets = (
             session.execute(select(Market.condition_id).limit(1)).first() is not None
         )
+        if not has_tags:
+            try:
+                run_job(
+                    session,
+                    "sync_tag_metadata",
+                    partial(sync_tag_metadata, settings=settings),
+                )
+            except Exception as exc:  # pragma: no cover - network dependent
+                logger.warning("bootstrap tag sync failed: %s", exc)
         if not has_markets:
             try:
                 run_job(

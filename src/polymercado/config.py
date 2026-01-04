@@ -22,9 +22,12 @@ class AppSettings(BaseModel):
     SYNC_UNIVERSE_INTERVAL_SECONDS: int = Field(default=900, ge=1)
     ORDERBOOK_SNAPSHOT_INTERVAL_SECONDS: int = Field(default=300, ge=1)
     SYNC_POSITIONS_INTERVAL_SECONDS: int = Field(default=600, ge=1)
+    SYNC_TAGS_INTERVAL_SECONDS: int = Field(default=21600, ge=60)
 
     GAMMA_EVENTS_PAGE_LIMIT: int = Field(default=100, ge=1)
     GAMMA_EVENTS_MAX_PAGES: int = Field(default=50, ge=1)
+    TAGS_PAGE_LIMIT: int = Field(default=200, ge=1)
+    TAGS_MAX_PAGES: int = Field(default=10, ge=1)
 
     MAX_TRACKED_MARKETS: int = Field(default=200, ge=1)
     MIN_GAMMA_VOLUME: float = Field(default=50000, ge=0)
@@ -65,7 +68,9 @@ class AppSettings(BaseModel):
     ALERT_RULES_ENABLED: bool = True
     ALERT_ACK_ENABLED: bool = True
     ALERT_SLACK_WEBHOOK_URL: str | None = None
-    ALERT_TELEGRAM_BOT_TOKEN: str | None = "8552168176:AAFAmrs7ngmxJfweaeRiAxmDeS0VE7L85pU"
+    ALERT_TELEGRAM_BOT_TOKEN: str | None = (
+        "8552168176:AAFAmrs7ngmxJfweaeRiAxmDeS0VE7L85pU"
+    )
     ALERT_TELEGRAM_CHAT_ID: str | None = "@polymercado"
 
     SCHEDULER_ENABLED: bool = True
