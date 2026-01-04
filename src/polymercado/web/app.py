@@ -16,7 +16,7 @@ from polymercado.web.routes import router
 
 
 @asynccontextmanager
-def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI):
     setup_logging()
 
     base_settings = load_settings()
