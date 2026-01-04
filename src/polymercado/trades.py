@@ -5,7 +5,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Any
 
-from polymercado.utils import parse_datetime
+from polymercado.utils import ensure_utc, parse_datetime
 
 
 def trade_dedupe_key(trade: dict[str, Any]) -> str:
@@ -28,7 +28,7 @@ def trade_dedupe_key(trade: dict[str, Any]) -> str:
 
 
 def parse_trade_ts(value: Any) -> datetime | None:
-    return parse_datetime(value)
+    return ensure_utc(parse_datetime(value))
 
 
 def compute_notional(price: Decimal | None, size: Decimal | None) -> Decimal | None:

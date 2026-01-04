@@ -206,7 +206,7 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
     wallet_cache: dict[str, Wallet] = {}
 
     try:
-        last_trade_ts = _latest_trade_ts(session)
+        last_trade_ts = ensure_utc(_latest_trade_ts(session))
         stop_ts = None
         if last_trade_ts:
             stop_ts = last_trade_ts - timedelta(
@@ -216,6 +216,7 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
             stop_ts = utc_now() - timedelta(
                 hours=settings.TRADES_INITIAL_LOOKBACK_HOURS
             )
+        stop_ts = ensure_utc(stop_ts)
 
         offset = 0
         pages = 0
