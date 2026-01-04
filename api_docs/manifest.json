@@ -1,0 +1,1452 @@
+[
+  {
+    "url": "https://docs.polymarket.com/api-reference/bridge/create-deposit-addresses",
+    "md_url": "https://docs.polymarket.com/api-reference/bridge/create-deposit-addresses.md",
+    "output_path": "api_docs/api-reference/bridge/create-deposit-addresses.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4261,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:18.079564+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/bridge/get-supported-assets",
+    "md_url": "https://docs.polymarket.com/api-reference/bridge/get-supported-assets.md",
+    "output_path": "api_docs/api-reference/bridge/get-supported-assets.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3884,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:18.144016+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/builders/get-aggregated-builder-leaderboard",
+    "md_url": "https://docs.polymarket.com/api-reference/builders/get-aggregated-builder-leaderboard.md",
+    "output_path": "api_docs/api-reference/builders/get-aggregated-builder-leaderboard.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3246,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:18.498403+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/builders/get-daily-builder-volume-time-series",
+    "md_url": "https://docs.polymarket.com/api-reference/builders/get-daily-builder-volume-time-series.md",
+    "output_path": "api_docs/api-reference/builders/get-daily-builder-volume-time-series.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3074,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:18.749520+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/comments/get-comments-by-comment-id",
+    "md_url": "https://docs.polymarket.com/api-reference/comments/get-comments-by-comment-id.md",
+    "output_path": "api_docs/api-reference/comments/get-comments-by-comment-id.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5178,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:19.056925+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/comments/get-comments-by-user-address",
+    "md_url": "https://docs.polymarket.com/api-reference/comments/get-comments-by-user-address.md",
+    "output_path": "api_docs/api-reference/comments/get-comments-by-user-address.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5815,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:19.359059+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/comments/list-comments",
+    "md_url": "https://docs.polymarket.com/api-reference/comments/list-comments.md",
+    "output_path": "api_docs/api-reference/comments/list-comments.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 6058,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:19.681602+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/core/get-closed-positions-for-a-user",
+    "md_url": "https://docs.polymarket.com/api-reference/core/get-closed-positions-for-a-user.md",
+    "output_path": "api_docs/api-reference/core/get-closed-positions-for-a-user.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5179,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:20.019143+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/core/get-current-positions-for-a-user",
+    "md_url": "https://docs.polymarket.com/api-reference/core/get-current-positions-for-a-user.md",
+    "output_path": "api_docs/api-reference/core/get-current-positions-for-a-user.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5517,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:20.269160+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/core/get-top-holders-for-markets",
+    "md_url": "https://docs.polymarket.com/api-reference/core/get-top-holders-for-markets.md",
+    "output_path": "api_docs/api-reference/core/get-top-holders-for-markets.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3475,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:20.597932+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/core/get-total-value-of-a-users-positions",
+    "md_url": "https://docs.polymarket.com/api-reference/core/get-total-value-of-a-users-positions.md",
+    "output_path": "api_docs/api-reference/core/get-total-value-of-a-users-positions.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2388,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:20.850085+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/core/get-trader-leaderboard-rankings",
+    "md_url": "https://docs.polymarket.com/api-reference/core/get-trader-leaderboard-rankings.md",
+    "output_path": "api_docs/api-reference/core/get-trader-leaderboard-rankings.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4443,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:21.153026+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/core/get-trades-for-a-user-or-markets",
+    "md_url": "https://docs.polymarket.com/api-reference/core/get-trades-for-a-user-or-markets.md",
+    "output_path": "api_docs/api-reference/core/get-trades-for-a-user-or-markets.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4742,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:21.456210+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/core/get-user-activity",
+    "md_url": "https://docs.polymarket.com/api-reference/core/get-user-activity.md",
+    "output_path": "api_docs/api-reference/core/get-user-activity.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5493,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:21.757174+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/data-api-status/data-api-health-check",
+    "md_url": "https://docs.polymarket.com/api-reference/data-api-status/data-api-health-check.md",
+    "output_path": "api_docs/api-reference/data-api-status/data-api-health-check.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1084,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:22.117766+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/events/get-event-by-id",
+    "md_url": "https://docs.polymarket.com/api-reference/events/get-event-by-id.md",
+    "output_path": "api_docs/api-reference/events/get-event-by-id.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 27960,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:22.348632+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/events/get-event-by-slug",
+    "md_url": "https://docs.polymarket.com/api-reference/events/get-event-by-slug.md",
+    "output_path": "api_docs/api-reference/events/get-event-by-slug.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 27989,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:22.701791+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/events/get-event-tags",
+    "md_url": "https://docs.polymarket.com/api-reference/events/get-event-tags.md",
+    "output_path": "api_docs/api-reference/events/get-event-tags.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2647,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:22.955105+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/events/list-events",
+    "md_url": "https://docs.polymarket.com/api-reference/events/list-events.md",
+    "output_path": "api_docs/api-reference/events/list-events.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 30490,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:23.268974+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/gamma-status/gamma-api-health-check",
+    "md_url": "https://docs.polymarket.com/api-reference/gamma-status/gamma-api-health-check.md",
+    "output_path": "api_docs/api-reference/gamma-status/gamma-api-health-check.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1504,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:23.552564+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/markets/get-market-by-id",
+    "md_url": "https://docs.polymarket.com/api-reference/markets/get-market-by-id.md",
+    "output_path": "api_docs/api-reference/markets/get-market-by-id.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 27870,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:23.852139+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/markets/get-market-by-slug",
+    "md_url": "https://docs.polymarket.com/api-reference/markets/get-market-by-slug.md",
+    "output_path": "api_docs/api-reference/markets/get-market-by-slug.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 27899,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:24.217703+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/markets/get-market-tags-by-id",
+    "md_url": "https://docs.polymarket.com/api-reference/markets/get-market-tags-by-id.md",
+    "output_path": "api_docs/api-reference/markets/get-market-tags-by-id.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2666,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:24.452417+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/markets/list-markets",
+    "md_url": "https://docs.polymarket.com/api-reference/markets/list-markets.md",
+    "output_path": "api_docs/api-reference/markets/list-markets.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 30820,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:24.806804+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/misc/get-live-volume-for-an-event",
+    "md_url": "https://docs.polymarket.com/api-reference/misc/get-live-volume-for-an-event.md",
+    "output_path": "api_docs/api-reference/misc/get-live-volume-for-an-event.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2198,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:25.062187+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/misc/get-open-interest",
+    "md_url": "https://docs.polymarket.com/api-reference/misc/get-open-interest.md",
+    "output_path": "api_docs/api-reference/misc/get-open-interest.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2029,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:25.351331+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/misc/get-total-markets-a-user-has-traded",
+    "md_url": "https://docs.polymarket.com/api-reference/misc/get-total-markets-a-user-has-traded.md",
+    "output_path": "api_docs/api-reference/misc/get-total-markets-a-user-has-traded.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2122,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:25.647678+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/orderbook/get-multiple-order-books-summaries-by-request",
+    "md_url": "https://docs.polymarket.com/api-reference/orderbook/get-multiple-order-books-summaries-by-request.md",
+    "output_path": "api_docs/api-reference/orderbook/get-multiple-order-books-summaries-by-request.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4830,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:25.958872+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/orderbook/get-order-book-summary",
+    "md_url": "https://docs.polymarket.com/api-reference/orderbook/get-order-book-summary.md",
+    "output_path": "api_docs/api-reference/orderbook/get-order-book-summary.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4319,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:26.353759+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/pricing/get-market-price",
+    "md_url": "https://docs.polymarket.com/api-reference/pricing/get-market-price.md",
+    "output_path": "api_docs/api-reference/pricing/get-market-price.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3034,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:26.554464+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/pricing/get-midpoint-price",
+    "md_url": "https://docs.polymarket.com/api-reference/pricing/get-midpoint-price.md",
+    "output_path": "api_docs/api-reference/pricing/get-midpoint-price.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2627,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:26.892913+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/pricing/get-multiple-market-prices",
+    "md_url": "https://docs.polymarket.com/api-reference/pricing/get-multiple-market-prices.md",
+    "output_path": "api_docs/api-reference/pricing/get-multiple-market-prices.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2206,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:27.156148+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/pricing/get-multiple-market-prices-by-request",
+    "md_url": "https://docs.polymarket.com/api-reference/pricing/get-multiple-market-prices-by-request.md",
+    "output_path": "api_docs/api-reference/pricing/get-multiple-market-prices-by-request.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3721,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:27.451644+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/pricing/get-price-history-for-a-traded-token",
+    "md_url": "https://docs.polymarket.com/api-reference/pricing/get-price-history-for-a-traded-token.md",
+    "output_path": "api_docs/api-reference/pricing/get-price-history-for-a-traded-token.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3859,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:27.761043+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/profiles/get-public-profile-by-wallet-address",
+    "md_url": "https://docs.polymarket.com/api-reference/profiles/get-public-profile-by-wallet-address.md",
+    "output_path": "api_docs/api-reference/profiles/get-public-profile-by-wallet-address.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4565,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:28.054989+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/search/search-markets-events-and-profiles",
+    "md_url": "https://docs.polymarket.com/api-reference/search/search-markets-events-and-profiles.md",
+    "output_path": "api_docs/api-reference/search/search-markets-events-and-profiles.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 31537,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:28.407593+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/series/get-series-by-id",
+    "md_url": "https://docs.polymarket.com/api-reference/series/get-series-by-id.md",
+    "output_path": "api_docs/api-reference/series/get-series-by-id.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 27868,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:28.667217+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/series/list-series",
+    "md_url": "https://docs.polymarket.com/api-reference/series/list-series.md",
+    "output_path": "api_docs/api-reference/series/list-series.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 28932,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:29.011071+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/sports/get-sports-metadata-information",
+    "md_url": "https://docs.polymarket.com/api-reference/sports/get-sports-metadata-information.md",
+    "output_path": "api_docs/api-reference/sports/get-sports-metadata-information.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3177,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:29.257303+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/sports/get-valid-sports-market-types",
+    "md_url": "https://docs.polymarket.com/api-reference/sports/get-valid-sports-market-types.md",
+    "output_path": "api_docs/api-reference/sports/get-valid-sports-market-types.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2175,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:29.558386+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/sports/list-teams",
+    "md_url": "https://docs.polymarket.com/api-reference/sports/list-teams.md",
+    "output_path": "api_docs/api-reference/sports/list-teams.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3270,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:29.852459+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/spreads/get-bid-ask-spreads",
+    "md_url": "https://docs.polymarket.com/api-reference/spreads/get-bid-ask-spreads.md",
+    "output_path": "api_docs/api-reference/spreads/get-bid-ask-spreads.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3126,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:30.162802+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/tags/get-related-tags-relationships-by-tag-id",
+    "md_url": "https://docs.polymarket.com/api-reference/tags/get-related-tags-relationships-by-tag-id.md",
+    "output_path": "api_docs/api-reference/tags/get-related-tags-relationships-by-tag-id.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2403,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:30.507195+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/tags/get-related-tags-relationships-by-tag-slug",
+    "md_url": "https://docs.polymarket.com/api-reference/tags/get-related-tags-relationships-by-tag-slug.md",
+    "output_path": "api_docs/api-reference/tags/get-related-tags-relationships-by-tag-slug.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2428,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:30.760685+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/tags/get-tag-by-id",
+    "md_url": "https://docs.polymarket.com/api-reference/tags/get-tag-by-id.md",
+    "output_path": "api_docs/api-reference/tags/get-tag-by-id.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2629,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:31.097543+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/tags/get-tag-by-slug",
+    "md_url": "https://docs.polymarket.com/api-reference/tags/get-tag-by-slug.md",
+    "output_path": "api_docs/api-reference/tags/get-tag-by-slug.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2658,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:31.376652+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/tags/get-tags-related-to-a-tag-id",
+    "md_url": "https://docs.polymarket.com/api-reference/tags/get-tags-related-to-a-tag-id.md",
+    "output_path": "api_docs/api-reference/tags/get-tags-related-to-a-tag-id.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2891,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:31.661391+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/tags/get-tags-related-to-a-tag-slug",
+    "md_url": "https://docs.polymarket.com/api-reference/tags/get-tags-related-to-a-tag-slug.md",
+    "output_path": "api_docs/api-reference/tags/get-tags-related-to-a-tag-slug.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2916,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:31.948428+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/api-reference/tags/list-tags",
+    "md_url": "https://docs.polymarket.com/api-reference/tags/list-tags.md",
+    "output_path": "api_docs/api-reference/tags/list-tags.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3201,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:32.250388+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/changelog/changelog",
+    "md_url": "https://docs.polymarket.com/changelog/changelog.md",
+    "output_path": "api_docs/changelog/changelog.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5109,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:32.603373+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/authentication",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/authentication.md",
+    "output_path": "api_docs/developers/CLOB/authentication.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 13446,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:32.848712+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/clients/methods-builder",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/clients/methods-builder.md",
+    "output_path": "api_docs/developers/CLOB/clients/methods-builder.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5921,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:33.200766+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/clients/methods-l1",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/clients/methods-l1.md",
+    "output_path": "api_docs/developers/CLOB/clients/methods-l1.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 7753,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:33.445334+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/clients/methods-l2",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/clients/methods-l2.md",
+    "output_path": "api_docs/developers/CLOB/clients/methods-l2.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 13219,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:33.757067+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/clients/methods-overview",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/clients/methods-overview.md",
+    "output_path": "api_docs/developers/CLOB/clients/methods-overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 6917,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:34.050572+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/clients/methods-public",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/clients/methods-public.md",
+    "output_path": "api_docs/developers/CLOB/clients/methods-public.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 13203,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:34.365376+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/geoblock",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/geoblock.md",
+    "output_path": "api_docs/developers/CLOB/geoblock.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4998,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:34.701342+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/introduction",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/introduction.md",
+    "output_path": "api_docs/developers/CLOB/introduction.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2912,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:34.970455+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/orders/cancel-orders",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/orders/cancel-orders.md",
+    "output_path": "api_docs/developers/CLOB/orders/cancel-orders.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5402,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:35.290868+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/orders/check-scoring",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/orders/check-scoring.md",
+    "output_path": "api_docs/developers/CLOB/orders/check-scoring.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2482,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:35.594096+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/orders/create-order",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/orders/create-order.md",
+    "output_path": "api_docs/developers/CLOB/orders/create-order.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 13515,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:35.856002+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/orders/create-order-batch",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/orders/create-order-batch.md",
+    "output_path": "api_docs/developers/CLOB/orders/create-order-batch.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 14548,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:36.154218+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/orders/get-active-order",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/orders/get-active-order.md",
+    "output_path": "api_docs/developers/CLOB/orders/get-active-order.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1546,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:36.464905+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/orders/get-order",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/orders/get-order.md",
+    "output_path": "api_docs/developers/CLOB/orders/get-order.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2860,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:36.794492+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/orders/onchain-order-info",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/orders/onchain-order-info.md",
+    "output_path": "api_docs/developers/CLOB/orders/onchain-order-info.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1101,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:37.049650+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/orders/orders",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/orders/orders.md",
+    "output_path": "api_docs/developers/CLOB/orders/orders.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3021,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:37.383615+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/quickstart",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/quickstart.md",
+    "output_path": "api_docs/developers/CLOB/quickstart.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 8255,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:37.659572+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/status",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/status.md",
+    "output_path": "api_docs/developers/CLOB/status.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 238,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:37.949680+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/timeseries",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/timeseries.md",
+    "output_path": "api_docs/developers/CLOB/timeseries.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4149,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:38.252559+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/trades/trades",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/trades/trades.md",
+    "output_path": "api_docs/developers/CLOB/trades/trades.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5732,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:38.548708+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/trades/trades-overview",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/trades/trades-overview.md",
+    "output_path": "api_docs/developers/CLOB/trades/trades-overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2214,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:38.892369+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/websocket/market-channel",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/websocket/market-channel.md",
+    "output_path": "api_docs/developers/CLOB/websocket/market-channel.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 16237,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:39.153109+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/websocket/user-channel",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/websocket/user-channel.md",
+    "output_path": "api_docs/developers/CLOB/websocket/user-channel.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 6246,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:39.483450+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/websocket/wss-auth",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/websocket/wss-auth.md",
+    "output_path": "api_docs/developers/CLOB/websocket/wss-auth.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 556,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:39.750692+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CLOB/websocket/wss-overview",
+    "md_url": "https://docs.polymarket.com/developers/CLOB/websocket/wss-overview.md",
+    "output_path": "api_docs/developers/CLOB/websocket/wss-overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2457,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:40.049533+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CTF/deployment-resources",
+    "md_url": "https://docs.polymarket.com/developers/CTF/deployment-resources.md",
+    "output_path": "api_docs/developers/CTF/deployment-resources.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1624,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:40.358861+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CTF/merge",
+    "md_url": "https://docs.polymarket.com/developers/CTF/merge.md",
+    "output_path": "api_docs/developers/CTF/merge.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1319,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:40.647102+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CTF/overview",
+    "md_url": "https://docs.polymarket.com/developers/CTF/overview.md",
+    "output_path": "api_docs/developers/CTF/overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2526,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:40.988807+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CTF/redeem",
+    "md_url": "https://docs.polymarket.com/developers/CTF/redeem.md",
+    "output_path": "api_docs/developers/CTF/redeem.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1226,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:41.264094+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/CTF/split",
+    "md_url": "https://docs.polymarket.com/developers/CTF/split.md",
+    "output_path": "api_docs/developers/CTF/split.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1673,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:41.591674+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/RTDS/RTDS-comments",
+    "md_url": "https://docs.polymarket.com/developers/RTDS/RTDS-comments.md",
+    "output_path": "api_docs/developers/RTDS/RTDS-comments.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 7232,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:41.887340+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/RTDS/RTDS-crypto-prices",
+    "md_url": "https://docs.polymarket.com/developers/RTDS/RTDS-crypto-prices.md",
+    "output_path": "api_docs/developers/RTDS/RTDS-crypto-prices.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5922,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:42.163391+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/RTDS/RTDS-overview",
+    "md_url": "https://docs.polymarket.com/developers/RTDS/RTDS-overview.md",
+    "output_path": "api_docs/developers/RTDS/RTDS-overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3292,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:42.452355+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/builders/builder-intro",
+    "md_url": "https://docs.polymarket.com/developers/builders/builder-intro.md",
+    "output_path": "api_docs/developers/builders/builder-intro.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3617,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:42.766469+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/builders/builder-profile",
+    "md_url": "https://docs.polymarket.com/developers/builders/builder-profile.md",
+    "output_path": "api_docs/developers/builders/builder-profile.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3626,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:43.087408+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/builders/builder-tiers",
+    "md_url": "https://docs.polymarket.com/developers/builders/builder-tiers.md",
+    "output_path": "api_docs/developers/builders/builder-tiers.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 7027,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:43.352851+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/builders/examples",
+    "md_url": "https://docs.polymarket.com/developers/builders/examples.md",
+    "output_path": "api_docs/developers/builders/examples.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2449,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:43.675587+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/builders/order-attribution",
+    "md_url": "https://docs.polymarket.com/developers/builders/order-attribution.md",
+    "output_path": "api_docs/developers/builders/order-attribution.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 11364,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:43.959094+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/builders/relayer-client",
+    "md_url": "https://docs.polymarket.com/developers/builders/relayer-client.md",
+    "output_path": "api_docs/developers/builders/relayer-client.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 27990,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:44.254303+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/gamma-markets-api/fetch-markets-guide",
+    "md_url": "https://docs.polymarket.com/developers/gamma-markets-api/fetch-markets-guide.md",
+    "output_path": "api_docs/developers/gamma-markets-api/fetch-markets-guide.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5375,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:44.554683+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/gamma-markets-api/gamma-structure",
+    "md_url": "https://docs.polymarket.com/developers/gamma-markets-api/gamma-structure.md",
+    "output_path": "api_docs/developers/gamma-markets-api/gamma-structure.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 994,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:44.850624+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/gamma-markets-api/overview",
+    "md_url": "https://docs.polymarket.com/developers/gamma-markets-api/overview.md",
+    "output_path": "api_docs/developers/gamma-markets-api/overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 748,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:45.241410+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/market-makers/data-feeds",
+    "md_url": "https://docs.polymarket.com/developers/market-makers/data-feeds.md",
+    "output_path": "api_docs/developers/market-makers/data-feeds.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5317,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:45.464921+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/market-makers/introduction",
+    "md_url": "https://docs.polymarket.com/developers/market-makers/introduction.md",
+    "output_path": "api_docs/developers/market-makers/introduction.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3716,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:45.770053+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/market-makers/inventory",
+    "md_url": "https://docs.polymarket.com/developers/market-makers/inventory.md",
+    "output_path": "api_docs/developers/market-makers/inventory.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 6689,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:46.050566+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/market-makers/setup",
+    "md_url": "https://docs.polymarket.com/developers/market-makers/setup.md",
+    "output_path": "api_docs/developers/market-makers/setup.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5522,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:46.347574+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/market-makers/trading",
+    "md_url": "https://docs.polymarket.com/developers/market-makers/trading.md",
+    "output_path": "api_docs/developers/market-makers/trading.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 6130,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:46.664917+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/misc-endpoints/bridge-overview",
+    "md_url": "https://docs.polymarket.com/developers/misc-endpoints/bridge-overview.md",
+    "output_path": "api_docs/developers/misc-endpoints/bridge-overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1355,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:46.948001+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/neg-risk/overview",
+    "md_url": "https://docs.polymarket.com/developers/neg-risk/overview.md",
+    "output_path": "api_docs/developers/neg-risk/overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2600,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:47.350352+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/proxy-wallet",
+    "md_url": "https://docs.polymarket.com/developers/proxy-wallet.md",
+    "output_path": "api_docs/developers/proxy-wallet.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2075,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:47.559209+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/resolution/UMA",
+    "md_url": "https://docs.polymarket.com/developers/resolution/UMA.md",
+    "output_path": "api_docs/developers/resolution/UMA.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5788,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:47.869460+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/rewards/overview",
+    "md_url": "https://docs.polymarket.com/developers/rewards/overview.md",
+    "output_path": "api_docs/developers/rewards/overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 6416,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:48.160623+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/developers/subgraph/overview",
+    "md_url": "https://docs.polymarket.com/developers/subgraph/overview.md",
+    "output_path": "api_docs/developers/subgraph/overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2207,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:48.455730+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/does-polymarket-have-an-api",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/does-polymarket-have-an-api.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/does-polymarket-have-an-api.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 813,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:48.756073+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/embeds",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/embeds.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/embeds.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1168,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:49.062628+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/geoblocking",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/geoblocking.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/geoblocking.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4032,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:49.454777+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/how-to-export-private-key",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/how-to-export-private-key.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/how-to-export-private-key.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 794,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:49.650986+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/is-my-money-safe",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/is-my-money-safe.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/is-my-money-safe.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1697,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:49.969599+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/is-polymarket-the-house",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/is-polymarket-the-house.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/is-polymarket-the-house.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1436,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:50.249782+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/polling",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/polling.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/polling.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1401,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:50.569614+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/recover-missing-deposit",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/recover-missing-deposit.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/recover-missing-deposit.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1152,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:50.855825+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/sell-early",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/sell-early.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/sell-early.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 556,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:51.149107+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/support",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/support.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/support.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 893,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:51.558909+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/wen-token",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/wen-token.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/wen-token.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 672,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:51.770297+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/what-are-prediction-markets",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/what-are-prediction-markets.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/what-are-prediction-markets.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2682,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:52.084022+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/FAQ/why-do-i-need-crypto",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/FAQ/why-do-i-need-crypto.md",
+    "output_path": "api_docs/polymarket-learn/FAQ/why-do-i-need-crypto.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1235,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:52.355428+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/deposits/coinbase",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/deposits/coinbase.md",
+    "output_path": "api_docs/polymarket-learn/deposits/coinbase.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3061,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:52.664066+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/deposits/how-to-withdraw",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/deposits/how-to-withdraw.md",
+    "output_path": "api_docs/polymarket-learn/deposits/how-to-withdraw.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1635,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:53.049322+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/deposits/large-cross-chain-deposits",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/deposits/large-cross-chain-deposits.md",
+    "output_path": "api_docs/polymarket-learn/deposits/large-cross-chain-deposits.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1506,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:53.249619+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/deposits/moonpay",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/deposits/moonpay.md",
+    "output_path": "api_docs/polymarket-learn/deposits/moonpay.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 543,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:53.654609+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/deposits/supported-tokens",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/deposits/supported-tokens.md",
+    "output_path": "api_docs/polymarket-learn/deposits/supported-tokens.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 8977,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:53.855306+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/deposits/usdc-on-eth",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/deposits/usdc-on-eth.md",
+    "output_path": "api_docs/polymarket-learn/deposits/usdc-on-eth.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1730,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:54.156135+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/get-started/how-to-deposit",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/get-started/how-to-deposit.md",
+    "output_path": "api_docs/polymarket-learn/get-started/how-to-deposit.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2345,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:54.446903+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/get-started/how-to-signup",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/get-started/how-to-signup.md",
+    "output_path": "api_docs/polymarket-learn/get-started/how-to-signup.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2322,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:54.757472+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/get-started/making-your-first-trade",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/get-started/making-your-first-trade.md",
+    "output_path": "api_docs/polymarket-learn/get-started/making-your-first-trade.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1771,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:55.055531+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/get-started/what-is-polymarket",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/get-started/what-is-polymarket.md",
+    "output_path": "api_docs/polymarket-learn/get-started/what-is-polymarket.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3725,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:55.349203+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/markets/dispute",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/markets/dispute.md",
+    "output_path": "api_docs/polymarket-learn/markets/dispute.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1875,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:55.728310+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/markets/how-are-markets-clarified",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/markets/how-are-markets-clarified.md",
+    "output_path": "api_docs/polymarket-learn/markets/how-are-markets-clarified.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4268,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:55.968169+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/markets/how-are-markets-created",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/markets/how-are-markets-created.md",
+    "output_path": "api_docs/polymarket-learn/markets/how-are-markets-created.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1715,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:56.253124+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/markets/how-are-markets-resolved",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/markets/how-are-markets-resolved.md",
+    "output_path": "api_docs/polymarket-learn/markets/how-are-markets-resolved.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2376,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:56.556022+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/trading/fees",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/trading/fees.md",
+    "output_path": "api_docs/polymarket-learn/trading/fees.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 377,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:56.853291+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/trading/holding-rewards",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/trading/holding-rewards.md",
+    "output_path": "api_docs/polymarket-learn/trading/holding-rewards.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3043,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:57.147478+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/trading/how-are-prices-calculated",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/trading/how-are-prices-calculated.md",
+    "output_path": "api_docs/polymarket-learn/trading/how-are-prices-calculated.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2159,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:57.447113+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/trading/limit-orders",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/trading/limit-orders.md",
+    "output_path": "api_docs/polymarket-learn/trading/limit-orders.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3606,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:57.827779+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/trading/liquidity-rewards",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/trading/liquidity-rewards.md",
+    "output_path": "api_docs/polymarket-learn/trading/liquidity-rewards.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 7006,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:58.065133+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/trading/market-orders",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/trading/market-orders.md",
+    "output_path": "api_docs/polymarket-learn/trading/market-orders.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 1723,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:58.347948+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/trading/no-limits",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/trading/no-limits.md",
+    "output_path": "api_docs/polymarket-learn/trading/no-limits.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 706,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:58.653401+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/polymarket-learn/trading/using-the-orderbook",
+    "md_url": "https://docs.polymarket.com/polymarket-learn/trading/using-the-orderbook.md",
+    "output_path": "api_docs/polymarket-learn/trading/using-the-orderbook.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3152,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:58.949967+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/quickstart/fetching-data",
+    "md_url": "https://docs.polymarket.com/quickstart/fetching-data.md",
+    "output_path": "api_docs/quickstart/fetching-data.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 4848,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:59.250311+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/quickstart/first-order",
+    "md_url": "https://docs.polymarket.com/quickstart/first-order.md",
+    "output_path": "api_docs/quickstart/first-order.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 8964,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:59.567855+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/quickstart/introduction/rate-limits",
+    "md_url": "https://docs.polymarket.com/quickstart/introduction/rate-limits.md",
+    "output_path": "api_docs/quickstart/introduction/rate-limits.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 8266,
+    "error": null,
+    "timestamp": "2026-01-04T15:39:59.925755+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/quickstart/overview",
+    "md_url": "https://docs.polymarket.com/quickstart/overview.md",
+    "output_path": "api_docs/quickstart/overview.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 3757,
+    "error": null,
+    "timestamp": "2026-01-04T15:40:00.169518+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/quickstart/reference/endpoints",
+    "md_url": "https://docs.polymarket.com/quickstart/reference/endpoints.md",
+    "output_path": "api_docs/quickstart/reference/endpoints.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 2657,
+    "error": null,
+    "timestamp": "2026-01-04T15:40:00.451037+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/quickstart/reference/glossary",
+    "md_url": "https://docs.polymarket.com/quickstart/reference/glossary.md",
+    "output_path": "api_docs/quickstart/reference/glossary.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 6008,
+    "error": null,
+    "timestamp": "2026-01-04T15:40:00.759421+00:00"
+  },
+  {
+    "url": "https://docs.polymarket.com/quickstart/websocket/WSS-Quickstart",
+    "md_url": "https://docs.polymarket.com/quickstart/websocket/WSS-Quickstart.md",
+    "output_path": "api_docs/quickstart/websocket/WSS-Quickstart.md",
+    "status": "success",
+    "http_status": 200,
+    "bytes": 5629,
+    "error": null,
+    "timestamp": "2026-01-04T15:40:01.072072+00:00"
+  }
+]
