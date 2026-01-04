@@ -6,16 +6,20 @@ from typing import Any
 
 from polymercado.config import AppSettings
 from polymercado.models import Wallet
+from polymercado.utils import ensure_utc
 
 
 def is_new_wallet(wallet: Wallet, trade_ts: datetime, settings: AppSettings) -> bool:
     window = timedelta(days=settings.NEW_WALLET_WINDOW_DAYS)
-    return trade_ts <= wallet.first_seen_at + window
+    first_seen = ensure_utc(wallet.first_seen_at)
+    if first_seen is None:
+        return False
+    return trade_ts <= first_seen + window
 
 
 def is_dormant(wallet: Wallet, trade_ts: datetime, settings: AppSettings) -> bool:
     window = timedelta(days=settings.DORMANT_WINDOW_DAYS)
-    last_seen = wallet.last_seen_at
+    last_seen = ensure_utc(wallet.last_seen_at)
     return last_seen is not None and trade_ts >= last_seen + window
 
 
@@ -62,9 +66,10 @@ def build_trade_payload(
         "config_snapshot": config_snapshot,
     }
     if wallet:
-        payload["wallet_first_seen_at"] = wallet.first_seen_at.isoformat()
+        first_seen = ensure_utc(wallet.first_seen_at)
+        payload["wallet_first_seen_at"] = first_seen.isoformat() if first_seen else None
         payload["wallet_age_days"] = (
-            (trade_ts - wallet.first_seen_at).days if wallet.first_seen_at else None
+            (trade_ts - first_seen).days if first_seen else None
         )
     if market_metrics:
         payload.update(market_metrics)

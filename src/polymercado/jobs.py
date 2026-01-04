@@ -29,10 +29,19 @@ def run_job(session: Session, job_name: str, func: JobFunc) -> int:
         job_run.last_error_at = None
         return processed
     except Exception as exc:
+        session.rollback()
+        job_run = session.get(JobRun, job_name)
+        if job_run is None:
+            job_run = JobRun(job_name=job_name)
+            session.add(job_run)
         job_run.last_error_at = utc_now()
         job_run.last_error = str(exc)
         raise
     finally:
         duration_ms = (time.monotonic() - start_time) * 1000
+        job_run = session.get(JobRun, job_name)
+        if job_run is None:
+            job_run = JobRun(job_name=job_name)
+            session.add(job_run)
         job_run.last_duration_ms = duration_ms
         session.commit()

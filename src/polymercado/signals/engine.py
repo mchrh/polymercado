@@ -18,7 +18,7 @@ from polymercado.models import (
     SignalType,
 )
 from polymercado.signals.arb import compute_arb, fill_levels, normalize_levels
-from polymercado.utils import utc_now
+from polymercado.utils import ensure_utc, utc_now
 
 
 def _dialect_insert(session: Session):
@@ -54,11 +54,13 @@ def run_signal_engine(session: Session, settings: AppSettings) -> int:
         )
         if not yes_asks or not no_asks:
             continue
-        if yes_asks.as_of and now - yes_asks.as_of > timedelta(
+        yes_as_of = ensure_utc(yes_asks.as_of)
+        if yes_as_of and now - yes_as_of > timedelta(
             seconds=settings.ARB_MAX_BOOK_AGE_SECONDS
         ):
             continue
-        if no_asks.as_of and now - no_asks.as_of > timedelta(
+        no_as_of = ensure_utc(no_asks.as_of)
+        if no_as_of and now - no_as_of > timedelta(
             seconds=settings.ARB_MAX_BOOK_AGE_SECONDS
         ):
             continue

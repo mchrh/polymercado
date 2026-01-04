@@ -203,6 +203,8 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
     processed = 0
     inserted = 0
 
+    wallet_cache: dict[str, Wallet] = {}
+
     try:
         last_trade_ts = _latest_trade_ts(session)
         stop_ts = None
@@ -277,7 +279,12 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
                 if result.rowcount and result.rowcount > 0:
                     inserted += 1
                     _update_wallets_and_signals(
-                        session, trade, notional, trade_ts, settings
+                        session,
+                        trade,
+                        notional,
+                        trade_ts,
+                        settings,
+                        wallet_cache,
                     )
 
             session.commit()
@@ -301,6 +308,7 @@ def _update_wallets_and_signals(
     notional: Decimal,
     trade_ts: datetime,
     settings: AppSettings,
+    wallet_cache: dict[str, Wallet],
 ) -> None:
     wallet_address = trade.get("proxyWallet")
     wallet = None
@@ -311,7 +319,11 @@ def _update_wallets_and_signals(
             days=settings.TRACK_WALLET_DAYS_AFTER_LARGE_TRADE
         )
     if wallet_address:
-        wallet = session.get(Wallet, wallet_address)
+        wallet = wallet_cache.get(wallet_address)
+        if wallet is None:
+            wallet = session.get(Wallet, wallet_address)
+            if wallet is not None:
+                wallet_cache[wallet_address] = wallet
 
         if wallet is None:
             wallet = Wallet(
@@ -323,6 +335,7 @@ def _update_wallets_and_signals(
                 lifetime_notional_usd=notional,
             )
             session.add(wallet)
+            wallet_cache[wallet_address] = wallet
         else:
             wallet_was_dormant = is_dormant(wallet, trade_ts, settings)
             wallet.last_seen_at = utc_now()
