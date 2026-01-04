@@ -29,7 +29,7 @@ from polymercado.signals.wallets import (
     severity_for_trade,
 )
 from polymercado.trades import compute_notional, parse_trade_ts, trade_dedupe_key
-from polymercado.utils import to_decimal, utc_now
+from polymercado.utils import ensure_utc, to_decimal, utc_now
 from polymercado.utils import safe_lower
 
 DATA_BASE = "https://data-api.polymarket.com"
@@ -344,10 +344,13 @@ def _update_wallets_and_signals(
                 if wallet.lifetime_notional_usd is not None
                 else notional
             )
-            if track_until and (
-                wallet.tracked_until is None or wallet.tracked_until < track_until
+            desired_tracked_until = ensure_utc(track_until)
+            current_tracked_until = ensure_utc(wallet.tracked_until)
+            if desired_tracked_until and (
+                current_tracked_until is None
+                or current_tracked_until < desired_tracked_until
             ):
-                wallet.tracked_until = track_until
+                wallet.tracked_until = desired_tracked_until
 
     market_metrics = _latest_market_metrics(session, trade.get("conditionId"))
     low_liquidity = False
