@@ -1,18 +1,25 @@
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
+from functools import partial
 from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from sqlalchemy import select
 
 from polymercado.config import load_settings
 from polymercado.db import get_session_factory, init_db
-from polymercado.logging import setup_logging
+from polymercado.ingestion.gamma import sync_gamma_events
+from polymercado.jobs import run_job
+from polymercado.logging import get_logger, setup_logging
 from polymercado.ingestion.clob_ws import OrderbookWebsocket
+from polymercado.models import Market
 from polymercado.scheduler import build_scheduler
 from polymercado.web.routes import router
+
+logger = get_logger(__name__)
 
 
 @asynccontextmanager
@@ -26,6 +33,18 @@ async def lifespan(app: FastAPI):
     session = session_factory()
     try:
         settings = load_settings(session)
+        has_markets = (
+            session.execute(select(Market.condition_id).limit(1)).first() is not None
+        )
+        if not has_markets:
+            try:
+                run_job(
+                    session,
+                    "sync_gamma_events",
+                    partial(sync_gamma_events, settings=settings),
+                )
+            except Exception as exc:  # pragma: no cover - network dependent
+                logger.warning("bootstrap gamma sync failed: %s", exc)
     finally:
         session.close()
 

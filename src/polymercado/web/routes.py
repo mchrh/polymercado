@@ -193,32 +193,6 @@ def markets(request: Request) -> HTMLResponse:
             .all()
         )
 
-        token_map: dict[str, tuple[str | None, str | None]] = {}
-        token_ids: list[str] = []
-        for market, *_ in rows:
-            yes_token, no_token = resolve_binary_tokens(
-                market.token_ids, market.outcomes
-            )
-            token_map[market.condition_id] = (yes_token, no_token)
-            if yes_token:
-                token_ids.append(yes_token)
-            if no_token:
-                token_ids.append(no_token)
-
-        book_map: dict[str, list[dict[str, Any]]] = {}
-        if token_ids:
-            books = (
-                session.execute(
-                    select(OrderbookLevels).where(
-                        OrderbookLevels.token_id.in_(token_ids),
-                        OrderbookLevels.side == OrderbookSide.ASK,
-                    )
-                )
-                .scalars()
-                .all()
-            )
-            book_map = {book.token_id: book.levels for book in books}
-
         items: list[dict[str, Any]] = []
         now = utc_now()
         for market, volume, liquidity, oi, spread_yes, spread_no in rows:
@@ -245,20 +219,8 @@ def markets(request: Request) -> HTMLResponse:
             score = compute_market_score(
                 volume, liquidity, oi, spread_yes, spread_no, settings
             )
-            yes_token, no_token = token_map.get(market.condition_id, (None, None))
-            depth_yes = (
-                _depth_within_cents(
-                    book_map.get(yes_token), settings.MARKET_DEPTH_WITHIN_CENTS
-                )
-                if yes_token
-                else None
-            )
-            depth_no = (
-                _depth_within_cents(
-                    book_map.get(no_token), settings.MARKET_DEPTH_WITHIN_CENTS
-                )
-                if no_token
-                else None
+            yes_token, no_token = resolve_binary_tokens(
+                market.token_ids, market.outcomes
             )
             ends_soon = (
                 market.end_time is not None
@@ -275,8 +237,10 @@ def markets(request: Request) -> HTMLResponse:
                     "spread_no": spread_no,
                     "spread_max": spread_val,
                     "score": score,
-                    "depth_yes": depth_yes,
-                    "depth_no": depth_no,
+                    "depth_yes": None,
+                    "depth_no": None,
+                    "yes_token": yes_token,
+                    "no_token": no_token,
                     "tracked": market.condition_id in tracked_set,
                     "ends_soon": ends_soon,
                 }
@@ -302,6 +266,45 @@ def markets(request: Request) -> HTMLResponse:
             items.sort(key=lambda item: item["score"], reverse=True)
 
         items = items[:200]
+
+        token_ids: list[str] = []
+        for item in items:
+            yes_token = item.get("yes_token")
+            no_token = item.get("no_token")
+            if yes_token:
+                token_ids.append(yes_token)
+            if no_token:
+                token_ids.append(no_token)
+
+        book_map: dict[str, list[dict[str, Any]]] = {}
+        if token_ids:
+            chunk_size = 900
+            for i in range(0, len(token_ids), chunk_size):
+                chunk = token_ids[i : i + chunk_size]
+                books = (
+                    session.execute(
+                        select(OrderbookLevels).where(
+                            OrderbookLevels.token_id.in_(chunk),
+                            OrderbookLevels.side == OrderbookSide.ASK,
+                        )
+                    )
+                    .scalars()
+                    .all()
+                )
+                for book in books:
+                    book_map[book.token_id] = book.levels
+
+        for item in items:
+            yes_token = item.get("yes_token")
+            no_token = item.get("no_token")
+            if yes_token:
+                item["depth_yes"] = _depth_within_cents(
+                    book_map.get(yes_token), settings.MARKET_DEPTH_WITHIN_CENTS
+                )
+            if no_token:
+                item["depth_no"] = _depth_within_cents(
+                    book_map.get(no_token), settings.MARKET_DEPTH_WITHIN_CENTS
+                )
         return request.app.state.templates.TemplateResponse(
             "markets.html",
             {
