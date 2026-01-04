@@ -62,11 +62,11 @@ class AppSettings(BaseModel):
     ALERT_CHANNELS: str = ""
     ALERT_DEDUP_WINDOW_SECONDS: int = Field(default=600, ge=0)
     ALERT_MIN_SEVERITY: int = Field(default=3, ge=1, le=5)
-    ALERT_RULES_ENABLED: bool = False
+    ALERT_RULES_ENABLED: bool = True
     ALERT_ACK_ENABLED: bool = True
     ALERT_SLACK_WEBHOOK_URL: str | None = None
-    ALERT_TELEGRAM_BOT_TOKEN: str | None = None
-    ALERT_TELEGRAM_CHAT_ID: str | None = None
+    ALERT_TELEGRAM_BOT_TOKEN: str | None = "8552168176:AAFAmrs7ngmxJfweaeRiAxmDeS0VE7L85pU"
+    ALERT_TELEGRAM_CHAT_ID: str | None = "-3591884093"
 
     SCHEDULER_ENABLED: bool = True
     CLOB_WS_ENABLED: bool = True
