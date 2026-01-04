@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from functools import partial
 
+from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.schedulers.background import BackgroundScheduler
 from sqlalchemy.orm import sessionmaker
 
@@ -22,7 +23,10 @@ from polymercado.signals.engine import run_signal_engine
 def build_scheduler(
     settings: AppSettings, session_factory: sessionmaker
 ) -> BackgroundScheduler:
-    scheduler = BackgroundScheduler(timezone="UTC")
+    executors = None
+    if settings.DATABASE_URL.startswith("sqlite"):
+        executors = {"default": ThreadPoolExecutor(max_workers=1)}
+    scheduler = BackgroundScheduler(timezone="UTC", executors=executors)
 
     def with_session(job_name, func):
         def runner():

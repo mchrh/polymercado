@@ -3,7 +3,7 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import Iterator
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -11,11 +11,25 @@ from polymercado.config import AppSettings
 from polymercado.models import Base
 
 
+def _configure_sqlite(dbapi_connection, _connection_record) -> None:
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA journal_mode=WAL")
+    cursor.execute("PRAGMA synchronous=NORMAL")
+    cursor.execute("PRAGMA busy_timeout=30000")
+    cursor.execute("PRAGMA temp_store=MEMORY")
+    cursor.execute("PRAGMA foreign_keys=ON")
+    cursor.close()
+
+
 def create_engine_from_url(database_url: str) -> Engine:
     connect_args = {}
     if database_url.startswith("sqlite"):
         connect_args["check_same_thread"] = False
-    return create_engine(database_url, connect_args=connect_args, future=True)
+        connect_args["timeout"] = 30
+    engine = create_engine(database_url, connect_args=connect_args, future=True)
+    if database_url.startswith("sqlite"):
+        event.listen(engine, "connect", _configure_sqlite)
+    return engine
 
 
 @lru_cache
