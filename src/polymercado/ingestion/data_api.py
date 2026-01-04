@@ -239,6 +239,7 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
                 trade_ts = parse_trade_ts(trade.get("timestamp"))
                 if trade_ts is None:
                     continue
+                trade_ts = ensure_utc(trade_ts)
                 if stop_ts and trade_ts < stop_ts:
                     stop_reached = True
                     break
