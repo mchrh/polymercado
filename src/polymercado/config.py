@@ -59,7 +59,7 @@ class AppSettings(BaseModel):
     TAKER_FEE_BPS: int = Field(default=0, ge=0, le=1000)
 
     ALERTS_ENABLED: bool = True
-    ALERT_CHANNELS: str = ""
+    ALERT_CHANNELS: str = "telegram"
     ALERT_DEDUP_WINDOW_SECONDS: int = Field(default=600, ge=0)
     ALERT_MIN_SEVERITY: int = Field(default=3, ge=1, le=5)
     ALERT_RULES_ENABLED: bool = True
