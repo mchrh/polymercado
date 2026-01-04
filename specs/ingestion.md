@@ -58,6 +58,8 @@ Goal: create a near-real-time feed of large taker prints.
   - `offset=0`
 - We treat it as a rolling window:
   - keep fetching pages until we reach trades older than our `last_trade_ts_seen - safety_window`.
+  - if we have no local trades yet, only fetch up to `TRADES_INITIAL_LOOKBACK_HOURS`.
+  - cap work per run with `TRADES_MAX_PAGES` to keep the scheduler responsive.
 - Insert trades idempotently:
   - Dedupe by `transaction_hash` if present; else by `(wallet, condition_id, token_id, side, trade_ts, size, price)`.
 

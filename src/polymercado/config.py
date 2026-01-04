@@ -48,6 +48,8 @@ class AppSettings(BaseModel):
 
     TRADE_SAFETY_WINDOW_SECONDS: int = Field(default=300, ge=0)
     TRADES_PAGE_LIMIT: int = Field(default=500, ge=1)
+    TRADES_MAX_PAGES: int = Field(default=10, ge=1)
+    TRADES_INITIAL_LOOKBACK_HOURS: int = Field(default=24, ge=1)
 
     ARB_EDGE_MIN: float = Field(default=0.01, ge=0, le=0.05)
     ARB_MIN_EXECUTABLE_SHARES: float = Field(default=50, ge=1)

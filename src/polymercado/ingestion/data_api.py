@@ -210,9 +210,16 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
             stop_ts = last_trade_ts - timedelta(
                 seconds=settings.TRADE_SAFETY_WINDOW_SECONDS
             )
+        else:
+            stop_ts = utc_now() - timedelta(
+                hours=settings.TRADES_INITIAL_LOOKBACK_HOURS
+            )
 
         offset = 0
+        pages = 0
         while True:
+            if pages >= settings.TRADES_MAX_PAGES:
+                break
             params = {
                 "limit": settings.TRADES_PAGE_LIMIT,
                 "offset": offset,
@@ -224,12 +231,14 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
             if not trades:
                 break
 
+            stop_reached = False
             for trade in trades:
                 trade_ts = parse_trade_ts(trade.get("timestamp"))
                 if trade_ts is None:
                     continue
                 if stop_ts and trade_ts < stop_ts:
-                    return inserted
+                    stop_reached = True
+                    break
 
                 dedupe = trade_dedupe_key(trade)
                 price = to_decimal(trade.get("price"))
@@ -271,13 +280,18 @@ def sync_large_trades(session: Session, settings: AppSettings) -> int:
                         session, trade, notional, trade_ts, settings
                     )
 
+            session.commit()
+            session.expire_all()
+            pages += 1
+
+            if stop_reached:
+                break
             if len(trades) < settings.TRADES_PAGE_LIMIT:
                 break
             offset += settings.TRADES_PAGE_LIMIT
     finally:
         client.close()
 
-    session.commit()
     return inserted
 
 

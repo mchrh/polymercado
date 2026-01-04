@@ -32,6 +32,8 @@
 - `GAMMA_EVENTS_PAGE_LIMIT` (default 100)
 - `GAMMA_EVENTS_MAX_PAGES` (default 50)
 - `TRADES_PAGE_LIMIT` (default 500)
+- `TRADES_MAX_PAGES` (default 10)
+- `TRADES_INITIAL_LOOKBACK_HOURS` (default 24)
 - `TRADE_SAFETY_WINDOW_SECONDS` (default 300)
 
 ### Universe selection
