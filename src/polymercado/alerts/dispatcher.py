@@ -264,10 +264,51 @@ def format_message(signal: SignalEvent) -> str:
         edge_label = f"{edge_pct:.2f}%" if edge_pct is not None else str(edge)
         return f"{prefix} Arb buy-both {edge_label} edge @ {q_max} shares"
     if signal.signal_type in {"LARGE_TAKER_TRADE", "LARGE_NEW_WALLET_TRADE"}:
-        notional = payload.get("notional_usd")
+        kind = (
+            "New wallet trade"
+            if signal.signal_type == "LARGE_NEW_WALLET_TRADE"
+            else "Trade"
+        )
+        side = payload.get("side")
+        outcome = payload.get("outcome")
+        notional = _format_usd(payload.get("notional_usd"))
+        price = _format_price(payload.get("price"))
         title = payload.get("market_title") or payload.get("market_slug")
-        return f"{prefix} Trade ${notional} {title}"
+        parts = [kind]
+        if side:
+            parts.append(str(side))
+        if outcome:
+            parts.append(str(outcome))
+        if notional:
+            parts.append(notional)
+        if price:
+            parts.append(f"@{price}")
+        summary = " ".join(parts)
+        if title:
+            return f"{prefix} {summary} — {title}"
+        return f"{prefix} {summary}"
     return f"{prefix} {signal.signal_type}"
+
+
+def _format_usd(value: Any) -> str | None:
+    if value is None:
+        return None
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return f"${value}"
+    return f"${numeric:,.0f}"
+
+
+def _format_price(value: Any) -> str | None:
+    if value is None:
+        return None
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return str(value)
+    formatted = f"{numeric:.4f}"
+    return formatted.rstrip("0").rstrip(".")
 
 
 def _log_alert(

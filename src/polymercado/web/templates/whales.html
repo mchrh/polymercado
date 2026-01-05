@@ -28,6 +28,8 @@
         <th>Time</th>
         <th>Wallet</th>
         <th>Type</th>
+        <th>Side</th>
+        <th>Outcome</th>
         <th>Notional</th>
         <th>Market</th>
       </tr>
@@ -38,6 +40,8 @@
         <td>{{ signal.created_at }}</td>
         <td class="mono"><a href="/wallets/{{ signal.wallet }}">{{ signal.wallet }}</a></td>
         <td>{{ signal.signal_type }}</td>
+        <td>{{ signal.payload.get("side") or "-" }}</td>
+        <td>{{ signal.payload.get("outcome") or "-" }}</td>
         <td>{{ signal.payload.get("notional_usd") }}</td>
         <td>
           <a href="/markets/{{ signal.condition_id }}">

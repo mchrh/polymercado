@@ -10,6 +10,7 @@
       <tr>
         <th>Time</th>
         <th>Signal</th>
+        <th>Message</th>
         <th>Severity</th>
         <th>Status</th>
         <th>Channel</th>
@@ -23,6 +24,7 @@
       <tr>
         <td>{{ signal.created_at }}</td>
         <td><a href="/signals/{{ signal.id }}">{{ signal.signal_type }}</a></td>
+        <td>{{ row.message }}</td>
         <td>{{ signal.severity }}</td>
         <td>{{ alert.status if alert else "-" }}</td>
         <td>{{ alert.channel if alert else "-" }}</td>

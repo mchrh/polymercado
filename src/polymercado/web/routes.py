@@ -11,7 +11,7 @@ from pydantic import ValidationError
 from sqlalchemy import and_, desc, func, select
 from sqlalchemy.orm import Session
 
-from polymercado.alerts.dispatcher import build_notification_key
+from polymercado.alerts.dispatcher import build_notification_key, format_message
 from polymercado.config import AppSettings, load_settings
 from polymercado.markets import compute_market_score, resolve_binary_tokens
 from polymercado.models import (
@@ -774,6 +774,7 @@ def alerts(request: Request) -> HTMLResponse:
             rows.append(
                 {
                     "signal": signal,
+                    "message": format_message(signal),
                     "alert": logs.get(signal.id),
                     "notification_key": key,
                     "ack": ack_map.get(key),
