@@ -2,7 +2,6 @@
 .env
 .venv
 .uv-cache/
-polymercado.db*
 __pycache__/
 *.pyc
 .pytest_cache/
