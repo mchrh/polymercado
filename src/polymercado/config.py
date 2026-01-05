@@ -64,7 +64,7 @@ class AppSettings(BaseModel):
     ALERTS_ENABLED: bool = True
     ALERT_CHANNELS: str = "telegram"
     ALERT_DEDUP_WINDOW_SECONDS: int = Field(default=600, ge=0)
-    ALERT_MIN_SEVERITY: int = Field(default=4, ge=1, le=5)
+    ALERT_MIN_SEVERITY: int = Field(default=1, ge=1, le=5)
     ALERT_RULES_ENABLED: bool = True
     ALERT_ACK_ENABLED: bool = True
     ALERT_SLACK_WEBHOOK_URL: str | None = None
