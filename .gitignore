@@ -12,3 +12,10 @@ dist/
 .uv_cache
 .ruff_cache
 .pytest_cache
+
+# Local data
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite3-*
