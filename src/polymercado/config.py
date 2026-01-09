@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import os
+from functools import lru_cache
+from pathlib import Path
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -8,6 +10,37 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from polymercado.models import AppConfig
+
+
+@lru_cache
+def _load_dotenv() -> None:
+    candidates = [
+        Path.cwd() / ".env",
+        Path(__file__).resolve().parents[2] / ".env",
+    ]
+    env_path = next((path for path in candidates if path.is_file()), None)
+    if env_path is None:
+        return
+
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        raw = line.strip()
+        if not raw or raw.startswith("#"):
+            continue
+        if raw.startswith("export "):
+            raw = raw.removeprefix("export ").strip()
+        if "=" not in raw:
+            continue
+
+        key, value = raw.split("=", 1)
+        key = key.strip()
+        value = value.strip()
+        if not key or key in os.environ:
+            continue
+
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+            value = value[1:-1]
+
+        os.environ[key] = value
 
 
 class AppSettings(BaseModel):
@@ -68,10 +101,8 @@ class AppSettings(BaseModel):
     ALERT_RULES_ENABLED: bool = True
     ALERT_ACK_ENABLED: bool = True
     ALERT_SLACK_WEBHOOK_URL: str | None = None
-    ALERT_TELEGRAM_BOT_TOKEN: str | None = (
-        "8552168176:AAFAmrs7ngmxJfweaeRiAxmDeS0VE7L85pU"
-    )
-    ALERT_TELEGRAM_CHAT_ID: str | None = "@polymercado"
+    ALERT_TELEGRAM_BOT_TOKEN: str | None = None
+    ALERT_TELEGRAM_CHAT_ID: str | None = None
 
     SCHEDULER_ENABLED: bool = True
     CLOB_WS_ENABLED: bool = True
@@ -91,6 +122,7 @@ class AppSettings(BaseModel):
 
 
 def load_settings(session: Session | None = None) -> AppSettings:
+    _load_dotenv()
     data = AppSettings().model_dump()
 
     if session is not None:

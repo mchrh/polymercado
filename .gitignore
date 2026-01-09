@@ -1,29 +1,37 @@
+# macOS
 .DS_Store
+
+# env / tooling
 .env
-.venv
+.env.*
+!.env.example
+.venv/
 .uv-cache/
+.uv_cache/
+
+# python
 __pycache__/
-*.pyc
+*.py[cod]
+
+# tests / lint
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# build
 build/
 dist/
 *.egg-info/
-.uv_cache
-.ruff_cache
-.pytest_cache
 
-# Local data
+# local data
 *.db
 *.db-*
 *.sqlite
 *.sqlite3
 *.sqlite3-*
 
-AGENTS.md
-api_docs/
-api_docs
+# agent checkpoints
 checkpoints/
-checkpoints
-specs/
-specs
