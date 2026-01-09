@@ -20,7 +20,7 @@ dist/
 *.sqlite3
 *.sqlite3-*
 
-.AGENTS.md
+AGENTS.md
 api_docs/
 api_docs
 checkpoints/
