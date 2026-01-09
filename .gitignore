@@ -21,3 +21,9 @@ dist/
 *.sqlite3-*
 
 .AGENTS.md
+api_docs/
+api_docs
+checkpoints/
+checkpoints
+specs/
+specs
