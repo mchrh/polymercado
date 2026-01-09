@@ -19,3 +19,5 @@ dist/
 *.sqlite
 *.sqlite3
 *.sqlite3-*
+
+.AGENTS.md
